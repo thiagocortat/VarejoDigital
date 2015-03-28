@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
@@ -53,8 +54,8 @@ public class MainActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withName("RH").withIdentifier(2),
                         new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Configuração"),
-                        new SecondaryDrawerItem().withName("Logout")
+                        new SecondaryDrawerItem().withName("Configuração").withIdentifier(4),
+                        new SecondaryDrawerItem().withName("Logout").withIdentifier(5)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -72,14 +73,14 @@ public class MainActivity extends ActionBarActivity {
                         } else if (i == 1) {
                             Fragment f = ProductFilterFragment.newInstance();
                             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        }
-                        else if (i == 2) {
+                        } else if (i == 2) {
                             Fragment f = EmployeeFilterFragment.newInstance();
                             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        }
-                        else if (i == 3) {
+                        } else if (i == 3) {
                             Fragment f = DemoFragment.newInstance("Teste");
                             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                        } else if (i == 4 || i == 5 || i == 6) {
+                            Toast.makeText(MainActivity.this, "Funcionalidade não disponível.", Toast.LENGTH_LONG).show();
                         }
                     }
 

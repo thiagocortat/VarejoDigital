@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names_array">
+
+        <item>ADRIANA HOFFGEN</item>
+         <item>ARTHUR MEDEIROS DE ASSIS BRASIL</item>
+         <item>BIANCA FERNANDES CASSOL</item>
+         <item>BRUNO COSTA DE ASSIS BRASIL</item>
+         <item>CAETANO DE QUEIROZ</item>
+         <item>CYRO DE MATTOS</item>
+         <item>DANIEL GERBER</item>
+         <item>DURVAL DE MORAES</item>
+         <item>EDSON LUÍS SOUTO</item>
+         <item>EDUARDO BRASILIENSE RAVASI</item>
+         <item>FÁBIO GUALBERTO ZOBARAN</item>
+         <item>FERNANDA VIEIRA DE ASSIS BRASIL</item>
+         <item>GABRIEL ALVES BOHRER</item>
+         <item>GENI DA SILVA</item>
+         <item>HELENA SOBRAL DE ALMEIDA</item>
+         <item>HUMBERTO GONÇALVES DE ASSIS BRASIL</item>
+         <item>IARA BEATRIZ DA SILVA</item>
+         <item>IVONE MARIA DE OLIVEIRA MEDEIROS</item>
+         <item>ISAACK CORREA MACHADO</item>
+         <item>JACI MACHADO</item>
+         <item>JACINTA JOBIM</item>
+         <item>JOÃO SIMO</item>
+         <item>JORGE MEDAUAR</item>
+         <item>JOSÉ AFONSO ARO</item>
+         <item>KÁTIA MARINA BRASILIENSE DIAS</item>
+         <item>KENYA MARTINS COUTO</item>
+         <item>LARA MILANO DE ASSIS BRASIL LARISSA VIEIRA</item>
+         <item>LAURA DE ASSIS BRASIL JOBIM</item>
+         <item>LETÍCIA JOBIM DIAS</item>
+         <item>LUÍS DE BEM</item>
+         <item>MADALENA DE SEIA</item>
+         <item>MARIA BERNARDA</item>
+         <item>MARLENE PERES</item>
+         <item>NADIR DOMINGUES</item>
+         <item>NELSON BRAGA MOREIRA</item>
+         <item>OLGA MARIA FRAGOSO BARBOSA</item>
+         <item>OTÁVIO PAZ</item>
+         <item>PAULINO BRASIL</item>
+         <item>PAULO MOURA</item>
+         <item>QUILUCHA DE ASSIS BRASIL JOBIM</item>
+         <item>QUININHA</item>
+         <item>RAFAEL ASSIS BRASIL RAMOS ARO</item>
+         <item>RAQUEL BRASILIENSE MARINHO</item>
+         <item>SAMUEL DA JORNADA DORNELLES</item>
+         <item>SANCHES DE BAENA</item>
+         <item>SÉRGIO MATTOS</item>
+         <item>THALES JOBIM DIAS</item>
+         <item>TIAGO DORNELLES DE ASSIS BRASIL</item>
+         <item>UBIRANEY AMORIM REIS</item>
+         <item>VALDA AMORIM REIS</item>
+         <item>VERA BEATRIZ FERREIRA LEAL</item>
+         <item>VINÍCIO DOMINGUES MENDONÇA</item>
+         <item>WAGNER FLORES</item>
+         <item>WALDEMAR MASSON</item>
+         <item>WALKER LIMA</item>
+         <item>YARA FÁTIMA DA MOTTA LOPES</item>
+         <item>YOLANDA GARCIA</item>
+         <item>ZECA NETO</item>
+         <item>ZEFERINA EZEQUIEL DA SILVA</item>
+         <item>ZELMA COELHO DA CUNHA</item>
+    </string-array>
+
+ <string-array name="products_array">
+
+
+   <item>Agua Sanitaria 1 lt</item>
+   <item>Alcool etilico  92,8°</item>
+   <item>Alcool etilico</item>
+   <item>Alcool gel 500 ml</item>
+   <item>Açúcar</item>
+   <item>Apanhador de lixo metálico cabo longo</item>
+   <item>Balde plástico cap  10L</item>
+   <item>Balde plástico cap  20L</item>
+   <item>Coador</item>
+   <item>Café moido almofada 250 gr</item>
+   <item>Café moido avaco 250 gr</item>
+   <item>Colher desc sobre mesa c/ 100</item>
+   <item>Copo desc  50ml p/ café</item>
+   <item>Copo desc  80 ml</item>
+   <item>Copo desc  200 ml Normatizado p/ água</item>
+   <item>Cesto plástico telado 10 L</item>
+   <item>Cesto de fibra   10 L</item>
+   <item>Cera Liquida incolor</item>
+   <item>Creme dental 50g</item>
+   <item>Cheirinho</item>
+   <item>Desentupidor de pia</item>
+   <item>Desentupidor p/ vaso sanitário</item>
+   <item>Esponja dupla face 71x 100 dim</item>
+   <item>Esponja dupla face</item>
+   <item>Escova dental adulto</item>
+   <item>Espanador de sisal</item>
+   <item>Espanador de pena nº 30</item>
+   <item>Espanador de pena nº 40</item>
+   <item>Estopa Br. Polimento 150g</item>
+   <item>Filme pvc 400x13</item>
+   <item>Filme pvc 300x13</item>
+   <item>Flanela 30x50</item>
+   <item>Flanela 40x30</item>
+   <item>Filtro de papel ref 103 c/ 10</item>
+   <item>Fosforo</item>
+   <item>Garrafa térmica 1/2 lt</item>
+   <item>Garfo Desc. Cristal c/ 10</item>
+   <item>Garfo Desc. Branco leitoso</item>
+   <item>Guardanapo p/ estojo 14x14 cm</item>
+   <item>Guardanapo fls simples 24x24</item>
+   <item>Guardanapo fls dupla  33x33</item>
+   <item>Inseticida Aerosol 300 ml</item>
+   <item>Leite em Pó</item>
+   <item>Lã de aço  pct c/ 8</item>
+   <item>Lustra moveis  200 ml</item>
+   <item>Limpador multiuso 500 ml</item>
+   <item>Limpador multiuso 500 ml</item>
+   <item>Luva Látex lisa P M G</item>
+   <item>Naftalina 40 gr</item>
+   <item>Pano de chão  alvej. Encorpado</item>
+   <item>Pano de chão  alvej. Comum</item>
+   <item>Pano de chão creme</item>
+   <item>Pano de Copa liso</item>
+   <item>Pano de Copa estampado</item>
+   <item>Pedra sanitária mista 30 gr</item>
+   <item>Pedra sanitária mista 35 gr</item>
+   <item>Pedra cristal 500 gr</item>
+   <item>Porta copo 50 ml inox puro =  (22,75)</item>
+   <item>Porta copo 200 ml inox</item>
+   <item>Porta papel hig. 300m</item>
+   <item>Porta papel hig. 500m</item>
+   <item>Porta papel toalha ABS</item>
+   <item>Purificador aerosol 400 ml</item>
+   <item>Purificador de ambiente lta c/ 160 ml</item>
+   <item>Purificador aerosol 400 ml</item>
+   <item>Pilha alcalina AA</item>
+   <item>Pilha alcalina AAA</item>
+   <item>Pilha palito</item>
+   <item>Papel aluminio 7,5 mt x 30 cm</item>
+   <item>Papel Kraft 1 x 50 kg</item>
+   <item>Palito dental c/ 100</item>
+   <item>Prato desc. Nº 21 cm  c/ 10</item>
+   <item>Prato desc. Nº 30 cm  c/ 10</item>
+   <item>Pasta para limpeza 500 g</item>
+   <item>Papel Hig. Folha dupla c/ 20 mts</item>
+   <item>Papel Hig. Folha dupla c/ 30 mts</item>
+   <item>Papel Hig. Rolão 8 x 300 mts</item>
+   <item>Pulverizador c/ gatilho (borrifador)</item>
+   <item>Papel toalha creme</item>
+   <item>Papel toalha branco</item>
+   <item>Quentinha retangular c/ 3 Div</item>
+   <item>Querosene  1 lt</item>
+   <item>Rodo Plástico com 2 borracha 30 cm</item>
+   <item>Removedor 500 ml</item>
+   <item>Sabonete em pedra suave 90 grs</item>
+   <item>Sabonete em pedra  90 grs</item>
+   <item>Sabonete  Liq. Cremoso 1 lt</item>
+   <item>Sabão em pó 500 grs</item>
+   <item>Sabão em pó 5 kg</item>
+   <item>Sabão em pasta p/ copa 200g</item>
+   <item>Sabão de coco 200 grs</item>
+   <item>Sabão em barra 200 grs Glicerinado</item>
+   <item>Sabão massa azul 500 grs</item>
+   <item>Saco plástico p/ lixo pt 20 l</item>
+   <item>Saco branco hosp. Infect. 20 l</item>
+   <item>Saco plástico liso de 1 a 10 kg</item>
+   <item>Sacola plástica BR  PP Dim. 25x35</item>
+   <item>Saco p/ talher</item>
+   <item>Soda caustica 300 grs</item>
+   <item>Soda caustica</item>
+   <item>Vassoura de pia de piaçava</item>
+   <item>Vassoura de pia de nylon</item>
+   <item>Vassoura piaçava nº 28</item>
+   <item>Vassoura gary de piaçava  40 cm</item>
+ </string-array>
+
+</resources>

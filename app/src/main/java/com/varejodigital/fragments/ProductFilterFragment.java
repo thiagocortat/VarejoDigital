@@ -1,6 +1,13 @@
 package com.varejodigital.fragments;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
+
+import com.varejodigital.R;
+import com.varejodigital.activities.ProductDetailActivity;
 import com.varejodigital.fragments.base.FilterFragment;
+import com.varejodigital.utilities.Constante;
 
 /**
  * Created by thiagocortat on 3/28/15.
@@ -50,6 +57,13 @@ public class ProductFilterFragment extends FilterFragment {
 
     @Override
     protected String[] getItems() {
-        return ITEMS;
+        return getResources().getStringArray(R.array.products_array);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+        intent.putExtra(Constante.Extra.TITLE, (String) parent.getAdapter().getItem(position));
+        startActivity(intent);
     }
 }

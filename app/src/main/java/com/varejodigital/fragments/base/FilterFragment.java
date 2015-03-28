@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ProgressBar;
@@ -30,7 +31,7 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class FilterFragment extends BaseFragment implements PinnedHeaderAdapter.OnFilterResult{
+public abstract class FilterFragment extends BaseFragment implements PinnedHeaderAdapter.OnFilterResult, AdapterView.OnItemClickListener {
 
 
     // unsorted list items
@@ -115,6 +116,7 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
         // set header view
         View pinnedHeaderView = inflater.inflate(R.layout.section_row_view, mListView, false);
         mListView.setPinnedHeaderView(pinnedHeaderView);
+        mListView.setOnItemClickListener(this);
 
         // set index bar view
         IndexBarView indexBarView = (IndexBarView) inflater.inflate(R.layout.index_bar_view, mListView, false);
@@ -160,6 +162,9 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
         setIndexBarViewVisibility(constraint.toString());
         new Poplulate().execute(resultsFiltered);
     }
+
+    @Override
+    public abstract void onItemClick(AdapterView<?> parent, View view, int position, long id);
 
     // sort array and extract sections in background Thread here we use
     // AsyncTask
