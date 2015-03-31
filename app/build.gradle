@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+
 android {
     compileSdkVersion 21
     buildToolsVersion "22.0.0"
@@ -39,6 +44,7 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'uk.co.chrisjenx:calligraphy:2.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
 
     compile 'com.nineoldandroids:library:2.4.0'
     compile "org.parceler:parceler-api:0.2.16"

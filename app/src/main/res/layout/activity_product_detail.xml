@@ -10,7 +10,7 @@
         android:id="@+id/imageProduct"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/img_employee_placeholder"
+        android:src="@drawable/img_product_placeholder"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/margin"
         android:layout_below="@+id/toolbar"/>

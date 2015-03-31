@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.varejodigital.activities.BaseActivity;
+import com.varejodigital.fragments.BillingFragment;
 import com.varejodigital.fragments.EmployeeFilterFragment;
 import com.varejodigital.fragments.ProductFilterFragment;
 import com.varejodigital.fragments.base.DemoFragment;
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
 //                        }
 
                         if (i == 0) {
-                            Fragment f = DemoFragment.newInstance("Teste");
+                            Fragment f = BillingFragment.newInstance();
                             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 1) {
                             Fragment f = ProductFilterFragment.newInstance();
