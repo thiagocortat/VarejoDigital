@@ -44,13 +44,15 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'uk.co.chrisjenx:calligraphy:2.0.1'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
 
     compile 'com.nineoldandroids:library:2.4.0'
     compile "org.parceler:parceler-api:0.2.16"
     provided "org.parceler:parceler:0.2.16"
 
-    compile('com.mikepenz.materialdrawer:library:2.6.5@aar') {
+    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+
+    compile('com.mikepenz.materialdrawer:library:2.7.6@aar') {
         transitive = true
     }
 }

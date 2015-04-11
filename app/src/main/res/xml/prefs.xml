@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/settings_category">
+        <!--<Preference android:title="@string/original_preference"/>-->
+        <!--<Preference-->
+            <!--android:title="@string/original_preference"-->
+            <!--android:summary="@string/original_summary"-->
+            <!--/>-->
+        <!--<Preference-->
+            <!--android:title="@string/original_preference"-->
+            <!--android:summary="@string/original_summary_with_icon"-->
+            <!--android:icon="@mipmap/ic_launcher"-->
+            <!--android:dependency="@string/original_checkbox_key"-->
+            <!--/>-->
+        <CheckBoxPreference
+            android:key="@string/original_checkbox_key"
+            android:title="@string/original_checkbox_preference"
+            android:summaryOn="@string/original_checkbox_summary_on"
+            android:summaryOff="@string/original_checkbox_summary_off"
+            android:checked="false"
+            android:disableDependentsState="true"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -2,6 +2,7 @@ package com.varejodigital.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,6 +17,11 @@ public class ProductDetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle(getString(R.string.product_detail));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String itemTitle = getIntent().getStringExtra(Constante.Extra.TITLE);
         TextView txName = (TextView) findViewById(R.id.txtName);
