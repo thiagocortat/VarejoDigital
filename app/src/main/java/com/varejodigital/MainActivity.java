@@ -17,11 +17,14 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.parse.ParseUser;
 import com.varejodigital.activities.LoginActivity;
 import com.varejodigital.fragments.BillingFragment;
+import com.varejodigital.fragments.CRMFragment;
 import com.varejodigital.fragments.EmployeeFilterFragment;
 import com.varejodigital.fragments.ProductFilterFragment;
 import com.varejodigital.fragments.SettingsFragment;
@@ -45,10 +48,20 @@ public class MainActivity extends ActionBarActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Add Profile
+        final IProfile profile = new ProfileDrawerItem()
+                .withName("João").withEmail("joao.teste@projetandoo.com")
+                .setEnabled(false)
+                .withIcon(getResources().getDrawable(R.drawable.profile5));
+
         // Create the AccountHeader
         AccountHeader.Result headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
+                .addProfiles(profile)
+                .withAlternativeProfileHeaderSwitching(false)
+                .withProfileImagesClickable(false)
+                .withSelectionListEnabled(false)
                 .build();
 
         result = new Drawer()
@@ -59,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
-                        new PrimaryDrawerItem().withName("Produto").withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
                         new PrimaryDrawerItem().withName("RH").withIdentifier(2),
                         new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
                         new DividerDrawerItem(),
@@ -80,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
                             Fragment f = EmployeeFilterFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 3) {
-                            Fragment f = DemoFragment.newInstance("Teste");
+                            Fragment f = CRMFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 5) {
                             SettingsFragment f = SettingsFragment.newInstance();
@@ -88,7 +101,6 @@ public class MainActivity extends ActionBarActivity {
                         } else if (i == 6) {
                             ParseUser.logOut();
                             loadLoginView();
-//                            Toast.makeText(MainActivity.this, "Funcionalidade não disponível.", Toast.LENGTH_LONG).show();
                         }
                     }
 

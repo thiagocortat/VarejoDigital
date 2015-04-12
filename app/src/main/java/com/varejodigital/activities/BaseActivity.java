@@ -116,13 +116,13 @@ public class BaseActivity extends ActionBarActivity implements OnLayoutInjectLis
 
             case android.R.id.home:
                 finish();
-                break;
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+//        return super.onOptionsItemSelected(item);
     }
 
 

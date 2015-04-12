@@ -73,9 +73,10 @@
 
     <color name="primary">@color/Red</color>
     <color name="primary_dark">@color/Brown</color>
-    <color name="accent">#FFEB3B</color>
+    <color name="accent">#ffffdb61</color>
     <color name="accent_translucent">#80FFEB3B</color>
     <color name="accent_bright">#FFF493</color>
+    <color name="text_primary">#d91e1e1e</color>
     <color name="text_secondary">#D9000000</color>
 
     <!--<color name="material_drawer_primary">#3E50B4</color>-->

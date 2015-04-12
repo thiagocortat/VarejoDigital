@@ -13,11 +13,21 @@
             android:layout_below="@+id/toolbar"
             android:padding="@dimen/activity_vertical_margin">
 
+            <TextView
+                android:id="@+id/txTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/margin"
+                android:gravity="center_horizontal"/>
+
             <EditText
                 android:id="@+id/usernameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/txTitle"
                 android:hint="Username" >
                 <requestFocus />
             </EditText>
@@ -27,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/usernameField"
-                android:hint="Password"
+                android:hint="Senha"
                 android:inputType="textPassword" />
 
             <Button
@@ -36,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/passwordField"
                 android:onClick="loginUser"
-                android:text="Login" />
+                android:text="Entrar" />
 
             <Button
                 android:id="@+id/signUpText"
@@ -45,7 +55,7 @@
                 android:layout_below="@+id/loginButton"
                 android:layout_centerHorizontal="true"
                 android:onClick="signUpUser"
-                android:text="SignUp" />
+                android:text="Cadastrar-se" />
 
     </RelativeLayout>
 

@@ -3,19 +3,26 @@
     android:layout_height="match_parent"
     tools:context="com.varejodigital.fragments.base.DemoFragment">
 
-    <TextView
-        android:id="@+id/txTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:padding="@dimen/margin"
-        android:text="Ticket Médio Acumulado no Ano"/>
+    <!--<TextView-->
+        <!--android:id="@+id/txTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+        <!--android:padding="@dimen/margin"-->
+        <!--android:text="Ticket Médio Acumulado no Ano"/>-->
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart1"
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/chart1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/txTitle" />-->
+
+    <ListView
+        android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/txTitle" />
+        android:layout_height="match_parent" >
+    </ListView>
+
 
 </RelativeLayout>

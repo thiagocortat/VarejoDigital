@@ -4,9 +4,21 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/txTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingTop="@dimen/margin"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin"
+        android:gravity="center_horizontal"
+        android:text="Ticket Médio Acumulado no Ano"/>
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="250dp"
+        android:layout_marginBottom="@dimen/margin"/>
 
 </LinearLayout>

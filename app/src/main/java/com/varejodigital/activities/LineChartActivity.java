@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -41,7 +42,9 @@ import java.util.Calendar;
 
 public class LineChartActivity extends BaseActivity implements OnChartValueSelectedListener, DatePickerDialog.OnDateSetListener{
 
+    private String textDate;
     private LineChart mChart;
+    private Button btDate;
 //    private SeekBar mSeekBarX, mSeekBarY;
 //    private TextView tvX, tvY;
 
@@ -65,7 +68,7 @@ public class LineChartActivity extends BaseActivity implements OnChartValueSelec
 
         // no description text
         mChart.setDescription("");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
+        mChart.setNoDataTextDescription("Você precisa informar um período para o gráfico.");
 
 //        // enable value highlighting
 //        mChart.setHighlightEnabled(true);
@@ -128,8 +131,8 @@ public class LineChartActivity extends BaseActivity implements OnChartValueSelec
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 //        final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY) ,calendar.get(Calendar.MINUTE), false, false);
 
-
-        findViewById(R.id.dateButton).setOnClickListener(new View.OnClickListener() {
+        btDate = (Button) findViewById(R.id.dateButton);
+        btDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -138,7 +141,6 @@ public class LineChartActivity extends BaseActivity implements OnChartValueSelec
                 datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
             }
         });
-
 
         if (savedInstanceState != null) {
             DatePickerDialog dpd = (DatePickerDialog) getSupportFragmentManager().findFragmentByTag(DATEPICKER_TAG);
@@ -352,19 +354,23 @@ public class LineChartActivity extends BaseActivity implements OnChartValueSelec
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        Toast.makeText(this, "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+        textDate = "De " + day + "/" + month + "/" + year;
 
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog2 =
                 DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-                        Toast.makeText(LineChartActivity.this, "new date2:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(LineChartActivity.this, "new date2:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+                        textDate = textDate + " à " + day + "/" + month + "/" + year;
+                        btDate.setText(textDate);
 
+
+//                        mChart.invalidate();
                         // add data
                         setData(45, 100);
                         mChart.animateX(2500);
-                        mChart.invalidate();
                     }
                 },
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));

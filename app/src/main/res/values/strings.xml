@@ -3,8 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_sign_up">Cadastrar-se</string>
 
 
     <string name="product_detail">Detalhe do Produto</string>
@@ -31,6 +31,6 @@
     <string name="original_checkbox_summary_off">Alerta Desligado</string>
 
 
-    <string name="alert_warning">Alerta: \n Produto Coca-Cola 2L abaixo do estoque míminio.</string>
+    <string name="alert_warning">Alerta:\n\n Produto Coca-Cola 2L abaixo do estoque míminio.</string>
     <string name="see_period">Informar Período</string>
 </resources>

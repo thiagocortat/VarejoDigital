@@ -15,7 +15,7 @@ import com.varejodigital.MainActivity;
 import com.varejodigital.R;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends BaseActivity {
 
     protected EditText usernameEditText;
     protected EditText passwordEditText;
@@ -32,6 +32,13 @@ public class LoginActivity extends ActionBarActivity {
         passwordEditText = (EditText)findViewById(R.id.passwordField);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
+
     public void loginUser(View view) {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -40,17 +47,20 @@ public class LoginActivity extends ActionBarActivity {
             Toast.makeText(LoginActivity.this,"Infome usário e senha", Toast.LENGTH_LONG).show();
         }
         else {
+            showProgress();
             ParseUser.logInInBackground(username, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
-                    if (e == null) { // Success!
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    } else {//Fail
-                        Toast.makeText(LoginActivity.this,"ERRO!" + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                if (e == null) { // Success!
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {//Fail
+                    Toast.makeText(LoginActivity.this,"ERRO!" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                hideProgress();
                 }
             });
         }

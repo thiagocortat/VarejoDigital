@@ -15,7 +15,7 @@ import com.varejodigital.MainActivity;
 import com.varejodigital.R;
 
 
-public class SignUpActivity extends ActionBarActivity {
+public class SignUpActivity extends BaseActivity {
 
     protected EditText usernameEditText;
     protected EditText passwordEditText;
@@ -29,7 +29,7 @@ public class SignUpActivity extends ActionBarActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         usernameEditText = (EditText)findViewById(R.id.usernameField);
         passwordEditText = (EditText)findViewById(R.id.passwordField);
@@ -45,6 +45,8 @@ public class SignUpActivity extends ActionBarActivity {
             Toast.makeText(SignUpActivity.this, "Informe todos os dados", Toast.LENGTH_LONG).show();
         }
         else {
+            showProgress();
+
             ParseUser newUser = new ParseUser();
             newUser.setUsername(username);
             newUser.setPassword(password);
@@ -61,6 +63,7 @@ public class SignUpActivity extends ActionBarActivity {
                     else { //Fail
                         Toast.makeText(SignUpActivity.this,"ERRO!" + e.getMessage(),Toast.LENGTH_LONG).show();
                     }
+                    hideProgress();
                 }
             });
         }
