@@ -93,7 +93,8 @@ public class MainActivity extends ActionBarActivity {
                             Fragment f = EmployeeFilterFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 3) {
-                            Fragment f = CRMFragment.newInstance();
+//                            Fragment f = CRMFragment.newInstance();
+                            Fragment f = DemoFragment.newInstance("");
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 5) {
                             SettingsFragment f = SettingsFragment.newInstance();
@@ -105,8 +106,12 @@ public class MainActivity extends ActionBarActivity {
                     }
 
                 })
-                .withFireOnInitialOnClick(true)
+                //just use this with the Drawer.Builder
+                .withSelectedItem(-1)
+                .withFireOnInitialOnClick(false)
                 .build();
+
+        result.openDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);

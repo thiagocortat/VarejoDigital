@@ -8,6 +8,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Funcionalidade ainda não disponível" />
+        tools:text="Funcionalidade ainda não disponível" />
 
 </FrameLayout>

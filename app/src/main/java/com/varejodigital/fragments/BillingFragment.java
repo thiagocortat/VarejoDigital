@@ -85,13 +85,13 @@ public class BillingFragment extends BaseFragment {
         for (int i = 0; i < 4; i++) {
 
             if(i == 0) {
-                list.add(new ChartLineModel("Ticket Médio Agora",  generateDataLine(i)));
+                list.add(new ChartLineModel("Ticket Médio Agora - " + getRandomValue() ,  generateDataLine(i)));
             } else if(i == 1) {
-                list.add(new ChartLineModel("Ticket Médio na Semana", generateDataLine(i)));
+                list.add(new ChartLineModel("Ticket Médio na Semana - "  + getRandomValue(), generateDataLine(i)));
             } else if(i == 2) {
-                list.add(new ChartLineModel("Ticket Médio no Mês", generateDataLine(i)));
+                list.add(new ChartLineModel("Ticket Médio no Mês - " + getRandomValue(), generateDataLine(i)));
             } else if(i == 3) {
-                list.add(new ChartLineModel("Ticket Médio no Ano", generateDataLine(i)));
+                list.add(new ChartLineModel("Ticket Médio no Ano - " + getRandomValue(), generateDataLine(i)));
             }
         }
 
@@ -217,7 +217,11 @@ public class BillingFragment extends BaseFragment {
 
     }
 
+    private String getRandomValue(){
 
+        DecimalFormat mFormat = new DecimalFormat("###,###,###,##0.00");
+        return  "R$ " + mFormat.format((Math.random() * 65) + 10);
+    }
 
 
     private class ChartDataAdapter extends ArrayAdapter<ChartLineModel> {
@@ -379,4 +383,7 @@ public class BillingFragment extends BaseFragment {
         m.add("Dez");
         return m;
     }
+
+
+
 }
