@@ -3,25 +3,42 @@
     android:layout_height="match_parent"
     tools:context="com.varejodigital.fragments.base.DemoFragment">
 
-    <!--<TextView-->
-        <!--android:id="@+id/txTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:padding="@dimen/margin"-->
-        <!--android:text="Ticket Médio Acumulado no Ano"/>-->
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segmented"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        segmentedgroup:border_width="1dp"
+        segmentedgroup:corner_radius="10dp"
+        segmentedgroup:tint_color="@color/primary"
+        segmentedgroup:checked_text_color="@color/White">
 
-    <!--<com.github.mikephil.charting.charts.LineChart-->
-        <!--android:id="@+id/chart1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@+id/txTitle" />-->
+        <RadioButton
+            android:id="@+id/button21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ticket Médio"
+            android:checked="true"
+            style="@style/RadioButton" />
 
+        <RadioButton
+            android:id="@+id/button22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Acumulado"
+            style="@style/RadioButton" />
+
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/segmented">
     </ListView>
 
 

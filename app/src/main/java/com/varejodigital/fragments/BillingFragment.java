@@ -19,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -39,23 +41,24 @@ import com.github.mikephil.charting.utils.ValueFormatter;
 import com.varejodigital.R;
 import com.varejodigital.activities.LineChartActivity;
 import com.varejodigital.fragments.base.BaseFragment;
+import com.varejodigital.model.ChartBarModel;
 import com.varejodigital.model.ChartLineModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
 
-public class BillingFragment extends BaseFragment {
 
-//    protected String[] mMonths = new String[] {
-//            "Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
-//    };
+public class BillingFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
+
 
     ListView lv;
     ValueFormatter customFormat;
-
-//    protected LineChart mChart;
+    SegmentedGroup segmented;
+    ChartDataLineAdapter chartLineAdapter;
+    ChartBarDataAdapter chartBarAdapter;
 
     public static BillingFragment newInstance() {
         BillingFragment f = new BillingFragment();
@@ -79,63 +82,32 @@ public class BillingFragment extends BaseFragment {
 
         customFormat = new MyValueFormatter();
 
-        ArrayList<ChartLineModel> list = new ArrayList<ChartLineModel>();
-
-        // 30 items
+        // 4 items
+        ArrayList<ChartLineModel> listLine = new ArrayList<ChartLineModel>();
+        ArrayList<ChartBarModel> listBar = new ArrayList<ChartBarModel>();
         for (int i = 0; i < 4; i++) {
 
             if(i == 0) {
-                list.add(new ChartLineModel("Ticket Médio Agora - " + getRandomValue() ,  generateDataLine(i)));
+                listLine.add(new ChartLineModel("Ticket Médio Agora - "     + getRandomValue() ,  generateDataLine(i)));
+                listBar.add(new ChartBarModel("Valor Acumulado Agora - "    + getRandomValueAccumulate(i), generateDataBar(i)));
             } else if(i == 1) {
-                list.add(new ChartLineModel("Ticket Médio na Semana - "  + getRandomValue(), generateDataLine(i)));
+                listLine.add(new ChartLineModel("Ticket Médio na Semana - "     + getRandomValue(), generateDataLine(i)));
+                listBar.add(new ChartBarModel("Valor Acumulado na Semana - "    + getRandomValueAccumulate(i), generateDataBar(i)));
             } else if(i == 2) {
-                list.add(new ChartLineModel("Ticket Médio no Mês - " + getRandomValue(), generateDataLine(i)));
+                listLine.add(new ChartLineModel("Ticket Médio no Mês - "    + getRandomValue(), generateDataLine(i)));
+                listBar.add(new ChartBarModel("Valor Acumulado no Mês - "   + getRandomValueAccumulate(i), generateDataBar(i)));
             } else if(i == 3) {
-                list.add(new ChartLineModel("Ticket Médio no Ano - " + getRandomValue(), generateDataLine(i)));
+                listLine.add(new ChartLineModel("Ticket Médio no Ano - "    + getRandomValue(), generateDataLine(i)));
+                listBar.add(new ChartBarModel("Valor Acumulado no Ano - "   + getRandomValueAccumulate(i), generateDataBar(i)));
             }
         }
 
+        chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine);
+        chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar);
+        lv.setAdapter(chartLineAdapter);
 
-        ChartDataAdapter cda = new ChartDataAdapter(getActivity(), list);
-        lv.setAdapter(cda);
-
-//        mChart = (LineChart) view.findViewById(R.id.chart1);
-//        mChart.setOnChartValueSelectedListener(this);
-//
-//        mChart.setDescription("");
-//        // if more than 60 entries are displayed in the chart, no values will be drawn
-//        mChart.setMaxVisibleValueCount(60);
-//        // scaling can now only be done on x- and y-axis separately
-//        mChart.setPinchZoom(false);
-//        mChart.setDrawGridBackground(false);
-//        mChart.setTouchEnabled(false);
-//        mChart.setScaleEnabled(false);
-//
-//        Legend l = mChart.getLegend();
-//        l.setEnabled(false);
-//
-//        mChart.getAxisRight().setEnabled(false);
-//
-//        XAxis xAxis = mChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setDrawGridLines(false);
-//        xAxis.setSpaceBetweenLabels(2);
-//
-//        ValueFormatter custom = new MyValueFormatter();
-//
-//        YAxis leftAxis = mChart.getAxisLeft();
-//        leftAxis.setLabelCount(8);
-//        leftAxis.setValueFormatter(custom);
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-//        leftAxis.setSpaceTop(15f);
-//
-//        YAxis rightAxis = mChart.getAxisRight();
-//        rightAxis.setDrawGridLines(false);
-//        rightAxis.setLabelCount(8);
-//        rightAxis.setValueFormatter(custom);
-//        rightAxis.setSpaceTop(15f);
-//
-//        setData(12, 50);
+        segmented = (SegmentedGroup) view.findViewById(R.id.segmented);
+        segmented.setOnCheckedChangeListener(this);
 
     }
 
@@ -155,49 +127,21 @@ public class BillingFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-//    private void setData(int count, float range) {
-//
-//        ArrayList<String> xVals = new ArrayList<String>();
-//        for (int i = 0; i < count; i++) {
-//            xVals.add(mMonths[i % 12]);
-//        }
-//
-//        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-//
-//        for (int i = 0; i < count; i++) {
-//            float mult = (range + 1);
-//            float val = (float) (Math.random() * mult);
-//            yVals1.add(new BarEntry(val, i));
-//        }
-//
-//        LineDataSet set1 = new LineDataSet(yVals1, "");
-//
-//        ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
-//        dataSets.add(set1);
-//
-//        LineData data = new LineData(xVals, dataSets);
-//        data.setValueTextSize(10f);
-//
-//        mChart.setData(data);
-//    }
-
-//    @SuppressLint("NewApi")
-//    @Override
-//    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-//
-//        if (e == null)
-//            return;
-//
-////        RectF bounds = mChart.getBarBounds((BarEntry) e);
-//        PointF position = mChart.getPosition(e, YAxis.AxisDependency.LEFT);
-//
-////        Log.i("bounds", bounds.toString());
-//        Log.i("position", position.toString());
-//    }
-//
-//    public void onNothingSelected() {
-//    };
-
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.button21:
+//                Toast.makeText(getActivity(), "One", Toast.LENGTH_SHORT).show();
+                lv.setAdapter(chartLineAdapter);
+                return;
+            case R.id.button22:
+//                Toast.makeText(getActivity(), "Two", Toast.LENGTH_SHORT).show();
+                lv.setAdapter(chartBarAdapter);
+                return;
+            default:
+                // Nothing to do
+        }
+    }
 
     public class MyValueFormatter implements ValueFormatter {
 
@@ -223,10 +167,25 @@ public class BillingFragment extends BaseFragment {
         return  "R$ " + mFormat.format((Math.random() * 65) + 10);
     }
 
+    private String getRandomValueAccumulate(int index){
 
-    private class ChartDataAdapter extends ArrayAdapter<ChartLineModel> {
+        DecimalFormat mFormat = new DecimalFormat("#########,##0");
+        if(index == 0) {
+            return  "R$ " + mFormat.format((Math.random() * 5000) + 5000);
+        } else if(index == 1) {
+            return  "R$ " + mFormat.format((Math.random() * 20000) + 20000);
+        } else if(index == 2) {
+            return  "R$ " + mFormat.format((Math.random() * 100000) + 100000);
+        } else {
+            return  "R$ " + mFormat.format((Math.random() * 1000000) + 1000000);
+        }
 
-        public ChartDataAdapter(Context context, List<ChartLineModel> objects) {
+    }
+
+
+    private class ChartDataLineAdapter extends ArrayAdapter<ChartLineModel> {
+
+        public ChartDataLineAdapter(Context context, List<ChartLineModel> objects) {
             super(context, 0, objects);
         }
 
@@ -296,6 +255,79 @@ public class BillingFragment extends BaseFragment {
         }
     }
 
+    private class ChartBarDataAdapter extends ArrayAdapter<ChartBarModel> {
+
+        public ChartBarDataAdapter(Context context, List<ChartBarModel> objects) {
+            super(context, 0, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ChartBarModel data = getItem(position);
+            ViewHolder holder;
+
+            if (convertView == null) {
+
+                holder = new ViewHolder();
+                convertView = LayoutInflater.from(getContext()).inflate(
+                        R.layout.list_item_barchart, null);
+                holder.chart = (BarChart) convertView.findViewById(R.id.chart);
+                holder.tx = (TextView) convertView.findViewById(R.id.txTitle);
+                convertView.setTag(holder);
+
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.tx.setText(data.getTitle());
+
+            // apply styling
+            holder.chart.setDescription("");
+            holder.chart.setDrawGridBackground(false);
+            holder.chart.setPinchZoom(false);
+            holder.chart.setTouchEnabled(false);
+            holder.chart.setScaleEnabled(false);
+
+            Legend l = holder.chart.getLegend();
+            l.setEnabled(false);
+
+            XAxis xAxis = holder.chart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setDrawGridLines(false);
+            xAxis.setDrawAxisLine(true);
+
+            YAxis leftAxis = holder.chart.getAxisLeft();
+            leftAxis.setLabelCount(5);
+            leftAxis.setValueFormatter(customFormat);
+            leftAxis.setEnabled(false);
+
+            YAxis rightAxis = holder.chart.getAxisRight();
+            rightAxis.setLabelCount(5);
+            rightAxis.setDrawGridLines(false);
+            rightAxis.setValueFormatter(customFormat);
+
+            // set data
+            holder.chart.setData(data.getBarData());
+
+            // do not forget to refresh the chart
+            // holder.chart.invalidate();
+            holder.chart.animateX(1000);
+
+            return convertView;
+        }
+
+        private class ViewHolder {
+            BarChart chart;
+            TextView tx;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return false;
+        }
+    }
+
     private LineData generateDataLine(int index) {
 
         ArrayList<String> labels;
@@ -318,14 +350,45 @@ public class BillingFragment extends BaseFragment {
         LineDataSet d1 = new LineDataSet(e1, "");
         d1.setLineWidth(3.0f);
         d1.setHighLightColor(ColorTemplate.COLORFUL_COLORS[index]);
-//        d1.setCircleSize(4.5f);
-//        d1.setHighLightColor(Color.rgb(244, 117, 117));
         d1.setColor(ColorTemplate.COLORFUL_COLORS[index]);
         d1.setCircleColor(ColorTemplate.COLORFUL_COLORS[index]);
         d1.setDrawValues(false);
 
         LineData cd = new LineData(labels, d1);
         return cd;
+    }
+
+    private BarData generateDataBar(int index){
+        ArrayList<String> labels;
+        if(index == 0) {
+            labels = getNow();
+        } else if(index == 1) {
+            labels = getWeek();
+        } else if(index == 2) {
+            labels = getMonth();
+        } else {
+            labels = getMonths();
+        }
+
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+        for (int i = 0; i < labels.size(); i++) {
+            if(index == 0) {
+                entries.add(new BarEntry((int)(Math.random() * 5000) + 5000, i));
+            } else if(index == 1) {
+                entries.add(new BarEntry((int)(Math.random() * 20000) + 20000, i));
+            } else if(index == 2) {
+                entries.add(new BarEntry((int)(Math.random() * 100000) + 100000, i));
+            } else {
+                entries.add(new BarEntry((int)(Math.random() * 1000000) + 1000000, i));
+            }
+        }
+
+        BarDataSet d = new BarDataSet(entries, "");
+        d.setBarSpacePercent(20f);
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setHighLightAlpha(255);
+
+        return new BarData(labels, d);
     }
 
 

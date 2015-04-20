@@ -5,75 +5,201 @@
 
     <include layout="@layout/includes_toolbar"/>
 
-
-    <ImageView
-        android:id="@+id/imageEmployee"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/img_employee_placeholder"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/margin"
-        android:layout_below="@+id/toolbar"/>
-
-    <TextView
-        android:id="@+id/txtName"
-        tools:text="João das Flores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="@dimen/margin"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:layout_below="@+id/imageEmployee"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtName"
-        android:layout_margin="@dimen/margin"
-        android:orientation="vertical">
+        android:layout_below="@+id/toolbar">
 
-        <TextView
-            android:text="Data de Admissao"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+            android:padding="@dimen/margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:text="17/12/2014"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            <ImageView
+                android:id="@+id/imageEmployee"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/img_employee_placeholder"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/margin"
+                tools:visibility="gone"/>
 
-        <TextView
-            android:text="Cargo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+            <TextView
+                android:id="@+id/txtName"
+                tools:text="João das Flores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/margin_min"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
 
-        <TextView
-            android:text="Caixa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            <TextView
+                android:text="Data de Admissao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-        <TextView
-            android:text="Salário"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+            <TextView
+                android:text="17/12/2014"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_min"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
-        <TextView
-            android:text="R$ 1.200,00"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            <TextView
+                android:text="Cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-    </LinearLayout>
+            <TextView
+                android:text="Caixa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_min"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            <TextView
+                android:text="Salário Bruto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+            <TextView
+                android:text="R$ 1.200,00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_min"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Silver"
+                android:layout_marginTop="@dimen/margin"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow android:paddingTop="@dimen/margin">
+                    <TextView
+                        android:text="Nº de Atrasos: "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:text=" 1 Semana"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 3 Mês"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 5 Trimestre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow  android:paddingTop="@dimen/margin">
+                    <TextView
+                        android:text="Nº de Faltas: "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:text=" 0 Semana"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 1 Mês"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 3 Trimestre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow  android:paddingTop="@dimen/margin">
+                    <TextView
+                        android:text="Nº Saídas Ant: "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:text=" 1 Semana"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 2 Mês"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                        <TextView
+                            android:text=" 4 Trimestre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
 
 </RelativeLayout>

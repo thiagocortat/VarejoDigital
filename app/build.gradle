@@ -50,6 +50,8 @@ dependencies {
     compile "org.parceler:parceler-api:0.2.16"
     provided "org.parceler:parceler:0.2.16"
 
+    compile 'info.hoang8f:android-segmented:1.0.5'
+
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
 
     compile('com.mikepenz.materialdrawer:library:2.7.6@aar') {
