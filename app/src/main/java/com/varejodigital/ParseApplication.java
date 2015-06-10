@@ -23,9 +23,8 @@ public class ParseApplication extends Application {
 //    ParseObject.registerSubclass(Tatto.class);
 //    ParseObject.registerSubclass(Message.class);
 
-    // Add your initialization code here
-    Parse.initialize(this, "BRngIIZDSL6AYVOHADLC2ncFbaZYCkNx5zR86CvB", "MDwf4nJgCYKivOxHFsmE3FFzQgTXIOKyHD3cgUL7");
-
+      // Add your initialization code here
+      Parse.initialize(this, "G2lw9bOOI3T4SI42ULhUb4fcHDKISDbOJIRnZbRU", "FF4GFPPeBdpnvzt7eiNlqtEr1HIgGwazX4StO1Al");
 
       // Save the current Installation to Parse.
       ParseInstallation.getCurrentInstallation().saveInBackground();

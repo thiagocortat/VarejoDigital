@@ -35,13 +35,13 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
 
 
     // unsorted list items
-    ArrayList<String> mItems;
+    protected ArrayList<String> mItems;
 
     // array list to store section positions
-    ArrayList<Integer> mListSectionPos;
+    protected ArrayList<Integer> mListSectionPos;
 
     // array list to store listView data
-    ArrayList<String> mListItems;
+    protected ArrayList<String> mListItems;
 
     // custom list view with pinned header
     PinnedHeaderListView mListView;
@@ -168,7 +168,7 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
 
     // sort array and extract sections in background Thread here we use
     // AsyncTask
-    private class Poplulate extends AsyncTask<ArrayList<String>, Void, Void> {
+    public class Poplulate extends AsyncTask<ArrayList<String>, Void, Void> {
 
         private void showLoading(View contentView, View loadingView, View emptyView) {
             contentView.setVisibility(View.GONE);
