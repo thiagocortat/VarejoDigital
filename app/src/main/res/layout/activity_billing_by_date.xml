@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.varejodigital.activities.BillingByDateActivity">
+
+    <include layout="@layout/includes_toolbar"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dateButton"/>
+
+    <TextView
+        android:id="@+id/txLabel"
+        android:text="Período: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/toolbar"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Informe a Data"
+        android:layout_below="@+id/txLabel"/>
+
+    <!--<Button-->
+    <!--android:id="@+id/timeButton"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:text="Select Time" />-->
+
+</RelativeLayout>

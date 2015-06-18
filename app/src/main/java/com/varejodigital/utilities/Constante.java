@@ -45,7 +45,8 @@ public interface Constante {
         public static final String DEAL             = "com.varejodigital.DEAL";
         public static final String SELECT           = "com.varejodigital.SELECT";
         public static final String POSITION         = "com.varejodigital.POSITION";
-        public static final String PRODUTO         = "com.varejodigital.PRODUTO";
+        public static final String PRODUTO          = "com.varejodigital.PRODUTO";
+        public static final String ID               = "com.varejodigital.ID";
 
         public static final String TITLE = "com.varejodigital.extraTitle";
 

@@ -2,12 +2,11 @@ package com.varejodigital.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
 
 /**
  * Created by thiagocortat on 3/24/15.
  */
-@Parcel
+//@Parcel
 public class Funcionario {
 
     protected String id;

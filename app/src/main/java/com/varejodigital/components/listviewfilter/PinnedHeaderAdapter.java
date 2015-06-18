@@ -12,13 +12,11 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 
 import com.varejodigital.R;
 import com.varejodigital.components.listviewfilter.ui.PinnedHeaderListView;
-import com.varejodigital.fragments.base.FilterFragment;
 
 
 // Customized adaptor to populate data in PinnedHeaderListView
@@ -35,7 +33,7 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 	ArrayList<Integer> mListSectionPos;
 
 	// array list to store list view data
-	ArrayList<String> mListItems;
+	ArrayList<?> mListItems;
 
 	// context object
 	Context mContext;
@@ -43,10 +41,10 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 	private OnFilterResult mListener;
 
 	public interface OnFilterResult {
-		void onfilterResult(CharSequence constraint, ArrayList<String> resultsFiltered);
+		void onfilterResult(CharSequence constraint, ArrayList<?> resultsFiltered);
 	}
 
-	public PinnedHeaderAdapter(Context context, ArrayList<String> listItems,ArrayList<Integer> listSectionPos) {
+	public PinnedHeaderAdapter(Context context, ArrayList<?> listItems,ArrayList<Integer> listSectionPos) {
 		this.mContext = context;
 		this.mListItems = listItems;
 		this.mListSectionPos = listSectionPos;
@@ -153,7 +151,7 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 		// set text in pinned header
 		TextView header = (TextView) v;
 		mCurrentSectionPosition = getCurrentSectionPosition(position);
-		header.setText(mListItems.get(mCurrentSectionPosition));
+		header.setText(mListItems.get(mCurrentSectionPosition).toString());
 	}
 
 	@Override
@@ -174,7 +172,7 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 //		//return ((MainActivity) mContext).new ListFilter();
 //	}
 
-	public Filter getFilter(ArrayList<String> items) {
+	public Filter getFilter(ArrayList<?> items) {
 		return new ListFilter(items);
 	}
 
@@ -188,8 +186,8 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 
 	public  class ListFilter extends Filter {
 
-		ArrayList<String> mItems;
-		public ListFilter(ArrayList<String> items) {
+		ArrayList<?> mItems;
+		public ListFilter(ArrayList<?> items) {
 			super();
 			this.mItems = items;
 		}
@@ -203,12 +201,13 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 			FilterResults result = new FilterResults();
 
 			if (constraint != null && constraint.toString().length() > 0) {
-				ArrayList<String> filterItems = new ArrayList<String>();
+				ArrayList<Object> filterItems = new ArrayList<>();
 
 				synchronized (this) {
-					for (String item : mItems) {
-						if (item.toLowerCase(Locale.getDefault()).startsWith(constraintStr)) {
-							filterItems.add(item);
+					//for (? item : mItems) {
+					for (int i = 0; i < mItems.size(); i++) {
+						if (mItems.get(i).toString().toLowerCase(Locale.getDefault()).startsWith(constraintStr)) {
+							filterItems.add(mItems.get(i));
 						}
 					}
 					result.count = filterItems.size();
@@ -226,7 +225,7 @@ public class PinnedHeaderAdapter extends BaseAdapter implements OnScrollListener
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void publishResults(CharSequence constraint, FilterResults results) {
-			ArrayList<String> filtered = (ArrayList<String>) results.values;
+			ArrayList<?> filtered = (ArrayList<?>) results.values;
 
 			if (PinnedHeaderAdapter.this.mListener != null){
 				mListener.onfilterResult(constraint, filtered);

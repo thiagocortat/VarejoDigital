@@ -33,189 +33,289 @@
                 android:paddingTop="@dimen/margin_min"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
-            <TextView
-                android:text="Preço de Custo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-            <TextView
-                android:text="R$ 3,39"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_min"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:text="Preço de Venda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-            <TextView
-                android:text="R$ 4,99"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_min"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:text="Margem Bruta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-            <TextView
-                android:text="47%"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_min"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:text="Preço de Custo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Qtd. Depósito"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-                    <TextView
-                        android:text="120"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txCusto"
+                    android:text="R$ 3,39"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Qtd. Loja"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
-                    <TextView
-                        android:text="34"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:text="Preço de Venda"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Estoque"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-                    <TextView
-                        android:text="154"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txPrice"
+                    android:text="R$ 4,99"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="Margem Bruta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/txLucro"
+                    android:text="47%"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/margin_min"
+            android:background="@color/Silver"/>
+
+        <TextView
+            android:text="Estoque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Mínimo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:text="120"
+                    android:id="@+id/txMinimo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Máximo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Venda Dia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-                    <TextView
-                        android:text="43"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txMaximo"
+                    android:text="34"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Venda Semana"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-                    <TextView
-                        android:text="109"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:text="Venda Mês"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-                    <TextView
-                        android:text="442"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/margin_min"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-                </LinearLayout>
-
-
-
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Disponível"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/txDisponivel"
+                    android:text="154"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Ponto Ressuprimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/txRessuprimento"
+                    android:text="154"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/margin_min"
+            android:background="@color/Silver"/>
+
+        <TextView
+            android:text="Venda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Venda Dia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:text="43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Venda Semana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:text="109"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:text="Venda Mês"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:text="442"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_min"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
         </LinearLayout>
 

@@ -2,12 +2,13 @@ package com.varejodigital.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by thiagocortat on 6/10/15.
  */
-public class ApiProduto {
+public class ApiProduto implements Serializable{
 
     /**
      * produto : {"id":133,"gondola":{"prontoReposicao":0},"preco":"8.06","custo":"7.66","loja":{"id":1,"nome":"PROJETANDOO"},"atributos":[],"codigoBarra":"","estoque":{"maximo":0,"disponivel":0,"pontoRessuprimento":0,"minimo":0},"imagens":[{"id":155,"url":"http://store.allinshopp.com.br/155/155.jpg"}],"nome":"BATOM VULT Nº 08","codigoInterno":0,"codigoExterno":0}
@@ -23,7 +24,7 @@ public class ApiProduto {
         return produto;
     }
 
-    public class Produto {
+    public class Produto implements Serializable {
         /**
          * id : 133
          * gondola : {"prontoReposicao":0}
@@ -159,7 +160,7 @@ public class ApiProduto {
             return codigoExterno;
         }
 
-        public class Gondola {
+        public class Gondola implements Serializable {
             /**
              * prontoReposicao : 0
              */
@@ -175,7 +176,7 @@ public class ApiProduto {
             }
         }
 
-        public class Loja {
+        public class Loja implements Serializable  {
             /**
              * id : 1
              * nome : PROJETANDOO
@@ -202,7 +203,7 @@ public class ApiProduto {
             }
         }
 
-        public class Estoque {
+        public class Estoque implements Serializable  {
             /**
              * maximo : 0
              * disponivel : 0
@@ -251,7 +252,7 @@ public class ApiProduto {
             }
         }
 
-        public class Imagens {
+        public class Imagens  implements Serializable {
             /**
              * id : 155
              * url : http://store.allinshopp.com.br/155/155.jpg

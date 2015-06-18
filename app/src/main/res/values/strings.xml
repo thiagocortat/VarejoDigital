@@ -33,4 +33,5 @@
 
     <string name="alert_warning">Alerta:\n\n Produto Coca-Cola 2L abaixo do estoque míminio.</string>
     <string name="see_period">Informar Período</string>
+    <string name="title_activity_billing_by_date">BillingByDateActivity</string>
 </resources>

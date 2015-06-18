@@ -3,6 +3,7 @@ package com.varejodigital.activities;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import fr.castorflex.android.circularprogressbar.CircularProgressDrawable;
 
 
-public class BaseActivity extends ActionBarActivity implements OnLayoutInjectListener {
+public class BaseActivity extends AppCompatActivity implements OnLayoutInjectListener {
 
 
     protected ViewGroup newRoot;

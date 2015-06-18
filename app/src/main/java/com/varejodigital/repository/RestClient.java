@@ -20,7 +20,7 @@ public class RestClient {
 
     private ApiService apiService;
 
-    private final static String apiBaseUrl = "http://www.allinshopp.com.br/varejodigital";
+    private final static String apiBaseUrl = "http://www.allinshopp.com.br/varejo";
 
     public RestClient() {
         init();

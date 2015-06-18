@@ -32,7 +32,7 @@ public class IndexBarView extends View {
     public ArrayList<Integer> mListSections;
 
     // array list to store listView data
-    ArrayList<String> mListItems;
+    ArrayList<?> mListItems;
 
     // paint object
     Paint mIndexPaint;
@@ -63,7 +63,7 @@ public class IndexBarView extends View {
     }
     
 
-    public void setData(PinnedHeaderListView listView, ArrayList<String> listItems,ArrayList<Integer> listSections) {
+    public void setData(PinnedHeaderListView listView, ArrayList<?> listItems,ArrayList<Integer> listSections) {
         this.mListItems = listItems;
         this.mListSections = listSections;
         
@@ -102,7 +102,7 @@ public class IndexBarView extends View {
 
     
     public String getSectionText(int sectionPosition) {
-        return mListItems.get(sectionPosition);
+        return mListItems.get(sectionPosition).toString();
     }
 
     
@@ -122,7 +122,7 @@ public class IndexBarView extends View {
 
         if (mCurrentSectionPosition >= 0 && mCurrentSectionPosition < mListSections.size()) {
             int position = mListSections.get(mCurrentSectionPosition);
-            String previewText = mListItems.get(position);
+            String previewText = mListItems.get(position).toString();
             mIndexBarFilter.filterList(mSideIndexY, position, previewText);
         }
     }

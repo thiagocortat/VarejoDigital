@@ -2,12 +2,13 @@ package com.varejodigital.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by thiagocortat on 6/10/15.
  */
-public class ApiProdutos {
+public class ApiProdutos implements Serializable {
 
     @SerializedName("list")
     private List<Produto> list;
@@ -20,7 +21,7 @@ public class ApiProdutos {
         return list;
     }
 
-    public class Produto {
+    public class Produto implements Serializable {
         /**
          * id : 132
          * nome : BATOM VULT Nº 01

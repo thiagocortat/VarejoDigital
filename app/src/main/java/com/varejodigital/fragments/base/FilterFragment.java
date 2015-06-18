@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,13 +34,13 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
 
 
     // unsorted list items
-    protected ArrayList<String> mItems;
+    protected ArrayList<?> mItems;
 
     // array list to store section positions
     protected ArrayList<Integer> mListSectionPos;
 
     // array list to store listView data
-    protected ArrayList<String> mListItems;
+    protected ArrayList mListItems;
 
     // custom list view with pinned header
     PinnedHeaderListView mListView;
@@ -58,7 +57,7 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
     // empty view
     TextView mEmptyView;
 
-    protected abstract String[] getItems();
+    protected abstract Object[] getItems();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,14 +77,15 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Array to ArrayList
-        mItems = new ArrayList<String>(Arrays.asList(getItems()));
-        mListSectionPos = new ArrayList<Integer>();
-        mListItems = new ArrayList<String>();
+//        // Array to ArrayList
+//        mItems = new ArrayList<>(Arrays.asList(getItems()));
+        mItems = new ArrayList<>();
+        mListSectionPos = new ArrayList<>();
+        mListItems = new ArrayList<>();
 
         // for handling configuration change
         if (savedInstanceState != null) {
-            mListItems = savedInstanceState.getStringArrayList("mListItems");
+            mListItems = (ArrayList<?>) savedInstanceState.getSerializable("mListItems");//StringArrayList("mListItems");
             mListSectionPos = savedInstanceState.getIntegerArrayList("mListSectionPos");
 
             if (mListItems != null && mListItems.size() > 0 && mListSectionPos != null && mListSectionPos.size() > 0) {
@@ -97,11 +97,22 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
                 mSearchView.setText(constraint);
                 setIndexBarViewVisibility(constraint);
             }
-        } else {
-            new Poplulate().execute(mItems);
         }
+//        else {
+//            new Poplulate().execute(mItems);
+//        }
 
         mSearchView.addTextChangedListener(filterTextWatcher);
+    }
+
+    public void setItems(Object[] items){
+
+        // Array to ArrayList
+        mItems = new ArrayList<>(Arrays.asList(items));
+//        mListSectionPos = new ArrayList<>();
+//        mListItems = new ArrayList<>();
+
+        new Poplulate().execute(mItems);
     }
 
 
@@ -158,7 +169,7 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onfilterResult(CharSequence constraint, ArrayList<String> resultsFiltered) {
+    public void onfilterResult(CharSequence constraint, ArrayList<?> resultsFiltered) {
         setIndexBarViewVisibility(constraint.toString());
         new Poplulate().execute(resultsFiltered);
     }
@@ -168,7 +179,7 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
 
     // sort array and extract sections in background Thread here we use
     // AsyncTask
-    public class Poplulate extends AsyncTask<ArrayList<String>, Void, Void> {
+    public class Poplulate extends AsyncTask<ArrayList<?>, Void, Void> {
 
         private void showLoading(View contentView, View loadingView, View emptyView) {
             contentView.setVisibility(View.GONE);
@@ -196,27 +207,28 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
         }
 
         @Override
-        protected Void doInBackground(ArrayList<String>... params) {
+        protected Void doInBackground(ArrayList<?>... params) {
             mListItems.clear();
             mListSectionPos.clear();
-            ArrayList<String> items = params[0];
+            ArrayList<?> items = params[0];
             if (mItems.size() > 0) {
 
                 // NOT forget to sort array
                 Collections.sort(items, new SortIgnoreCase());
 
                 String prev_section = "";
-                for (String current_item : items) {
-                    String current_section = current_item.substring(0, 1).toUpperCase(Locale.getDefault());
+//                for (String current_item : items) {
+                for (int i = 0; i < items.size(); i++ ) {
+                    String current_section = items.get(i).toString().substring(0, 1).toUpperCase(Locale.getDefault());
 
                     if (!prev_section.equals(current_section)) {
                         mListItems.add(current_section);
-                        mListItems.add(current_item);
+                        mListItems.add(items.get(i));
                         // array list of section positions
                         mListSectionPos.add(mListItems.indexOf(current_section));
                         prev_section = current_section;
                     } else {
-                        mListItems.add(current_item);
+                        mListItems.add(items.get(i));
                     }
                 }
             }
@@ -237,16 +249,16 @@ public abstract class FilterFragment extends BaseFragment implements PinnedHeade
         }
     }
 
-    public class SortIgnoreCase implements Comparator<String> {
-        public int compare(String s1, String s2) {
-            return s1.compareToIgnoreCase(s2);
+    public class SortIgnoreCase implements Comparator<Object> {
+        public int compare(Object s1, Object s2) {
+            return s1.toString().compareToIgnoreCase(s2.toString());
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (mListItems != null && mListItems.size() > 0) {
-            outState.putStringArrayList("mListItems", mListItems);
+            outState.putSerializable("mListItems", mListItems);
         }
         if (mListSectionPos != null && mListSectionPos.size() > 0) {
             outState.putIntegerArrayList("mListSectionPos", mListSectionPos);

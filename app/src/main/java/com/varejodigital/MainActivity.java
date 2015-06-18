@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,17 +22,31 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.parse.ParseException;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.parse.PushService;
+import com.parse.SaveCallback;
 import com.varejodigital.activities.LoginActivity;
 import com.varejodigital.fragments.BillingFragment;
 import com.varejodigital.fragments.CRMFragment;
 import com.varejodigital.fragments.EmployeeFilterFragment;
+import com.varejodigital.fragments.FaturamentoFragment;
 import com.varejodigital.fragments.ProductFilterFragment;
 import com.varejodigital.fragments.SettingsFragment;
 import com.varejodigital.fragments.base.DemoFragment;
+import com.varejodigital.model.ApiChannels;
+import com.varejodigital.model.ApiFaturamento;
+import com.varejodigital.repository.RestClient;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Drawer.Result result = null;
 
@@ -84,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int i, long id, IDrawerItem drawerItem) {
 
                         if (i == 0) {
-                            Fragment f = BillingFragment.newInstance();
+                            Fragment f = FaturamentoFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 1) {
                             Fragment f = ProductFilterFragment.newInstance();
@@ -116,6 +131,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 
+        connectService();
 
         SharedPreferences pref =  PreferenceManager.getDefaultSharedPreferences(this);
         boolean alert = pref.getBoolean(getString(R.string.original_checkbox_key), false);
@@ -123,6 +139,7 @@ public class MainActivity extends ActionBarActivity {
             showSimpleDialog(getString(R.string.alert_warning));
         }
     }
+
 
     private void loadLoginView() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -154,5 +171,35 @@ public class MainActivity extends ActionBarActivity {
             builder.setNeutralButton("OK",null);
             builder.create().show();
         }catch (Exception e) {}
+    }
+
+
+    public void connectService() {
+
+        RestClient restClient = new RestClient();
+        restClient.getApiService().obtainCanais(new Callback<ApiChannels>() {
+            @Override
+            public void success(ApiChannels apiChannels, Response response) {
+                if (apiChannels.getList() != null) {
+                    for (String channel : apiChannels.getList()) {
+
+                        ParsePush.subscribeInBackground(channel, new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null)
+                                    Toast.makeText(getBaseContext(), "FOI ", Toast.LENGTH_LONG).show();
+                                else
+                                    Toast.makeText(getBaseContext(), "ERRO " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getBaseContext(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

@@ -12,9 +12,12 @@ import com.varejodigital.fragments.base.FilterFragment;
 import com.varejodigital.model.ApiProdutos;
 import com.varejodigital.repository.RestClient;
 import com.varejodigital.utilities.Constante;
+import com.varejodigital.utilities.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit.Callback;
@@ -38,8 +41,11 @@ public class ProductFilterFragment extends FilterFragment {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        ApiProdutos.Produto produto = (ApiProdutos.Produto) parent.getAdapter().getItem(position);
+
         Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
-        intent.putExtra(Constante.Extra.TITLE, (String) parent.getAdapter().getItem(position));
+        intent.putExtra(Constante.Extra.ID, produto.getId());
         startActivity(intent);
     }
 
@@ -47,19 +53,27 @@ public class ProductFilterFragment extends FilterFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        showProgress();
+
         RestClient restClient = new RestClient();
         restClient.getApiService().obtainProdutos(new Callback<ApiProdutos>() {
             @Override
             public void success(ApiProdutos apiProdutos, Response response) {
-                Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
 
                 setListAdapter(apiProdutos.getList());
+
+                hideProgress();
 
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+
+                setEmptyText("Erro de Conexão, por favor tente novamente!");
+
+                hideProgress();
             }
         });
 
@@ -67,14 +81,14 @@ public class ProductFilterFragment extends FilterFragment {
 
     public void setListAdapter(List<ApiProdutos.Produto> list){
 
-//        List<String> strings = new ArrayList<>();
-//        for (ApiProdutos.Produto produto : list) {
-//            strings.add(produto != null ? produto.getNome() : null);
-//        }
-//
-//        mItems = new ArrayList<>(strings);
-//
-//        new Poplulate().execute(mItems);
+        for (Iterator<ApiProdutos.Produto> it = list.iterator(); it.hasNext(); ) {
+            ApiProdutos.Produto produto = it.next();
+            if (StringUtils.isEmpty(produto.getNome()))
+                it.remove();
+        }
+
+        mItems = new ArrayList<>(list);
+        new Poplulate().execute(mItems);
 
     }
 }

@@ -1,7 +1,12 @@
 package com.varejodigital.repository;
 
+import com.varejodigital.model.ApiChannels;
+import com.varejodigital.model.ApiFaturamento;
 import com.varejodigital.model.ApiProduto;
 import com.varejodigital.model.ApiProdutos;
+
+import java.util.List;
+
 import retrofit.Callback;
 
 import retrofit.http.GET;
@@ -23,8 +28,16 @@ public interface ApiService {
 
     @GET("/financeiro/faturamento.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
-    void obtainFaturamento(Callback<String> callback);
+    void obtainFaturamento(Callback<ApiFaturamento> callback);
 
+    //Sample: financeiro/2015-01-01/2015-02-01/faturamento.json
+    @GET("/financeiro/{dt-begin}/{dt-end}/faturamento.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void obtainFaturamentoByDate(@Path("dt-begin") String dtBegin, @Path("dt-end") String dtEnd, Callback<ApiFaturamento> callback);
+
+    @GET("/canais-comunicacao.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void obtainCanais(Callback<ApiChannels> callback);
 
 //    @GET("/estados.json")
 //    @Headers({ "Content-type: application/json; charset=UTF-8" })

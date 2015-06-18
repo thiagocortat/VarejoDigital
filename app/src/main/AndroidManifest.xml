@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-
     <permission
         android:name="com.varejodigital.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -51,7 +50,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.varejodigital.MainActivity" />
         </activity>
-
         <activity
             android:name=".activities.LineChartActivity"
             android:label="@string/title_activity_chart"
@@ -60,7 +58,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.varejodigital.MainActivity" />
         </activity>
-
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" >
@@ -101,7 +98,10 @@
             </intent-filter>
         </receiver>
 
-
+        <activity
+            android:name=".activities.BillingByDateActivity"
+            android:label="@string/title_activity_billing_by_date" >
+        </activity>
     </application>
 
 </manifest>
