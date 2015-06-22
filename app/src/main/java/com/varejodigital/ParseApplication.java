@@ -32,15 +32,7 @@ public class ParseApplication extends Application {
       Parse.initialize(this, "G2lw9bOOI3T4SI42ULhUb4fcHDKISDbOJIRnZbRU", "FF4GFPPeBdpnvzt7eiNlqtEr1HIgGwazX4StO1Al");
 
       // Save the current Installation to Parse.
-      ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
-          @Override
-          public void done(ParseException e) {
-              if (e == null)
-                  Log.d("ParseApplication", "SALVOU");
-              else
-                  Log.d("ParseApplication", "ERRO!!!!");
-          }
-      });
+      ParseInstallation.getCurrentInstallation().saveInBackground();
 
   }
 

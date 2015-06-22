@@ -32,10 +32,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ValueFormatter;
 import com.varejodigital.R;
 import com.varejodigital.activities.BillingByDateActivity;
-import com.varejodigital.activities.LineChartActivity;
 import com.varejodigital.fragments.base.BaseFragment;
 import com.varejodigital.model.ApiFaturamento;
-import com.varejodigital.model.ApiProduto;
 import com.varejodigital.model.ChartBarModel;
 import com.varejodigital.model.ChartLineModel;
 import com.varejodigital.repository.RestClient;
@@ -50,6 +48,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
+
 public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
 
 
@@ -59,11 +58,23 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
     ChartDataLineAdapter chartLineAdapter;
     ChartBarDataAdapter chartBarAdapter;
 
+    public static final String DATEPICKER_TAG = "datepicker";
+    public static final String DATEPICKER_2_TAG = "datepicker2";
+
+    int selectedSegmentIndex = 0;
+
     public static FaturamentoFragment newInstance() {
-        FaturamentoFragment f = new FaturamentoFragment();
-        return (f);
+        return (new FaturamentoFragment());
     }
 
+    public static FaturamentoFragment newInstance(String dateOne, String dateTwo) {
+        FaturamentoFragment f = new FaturamentoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(DATEPICKER_TAG, dateOne);
+        bundle.putString(DATEPICKER_2_TAG, dateTwo);
+        f.setArguments(bundle);
+        return (f);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,34 +92,18 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
         customFormat = new MyValueFormatter();
 
-        // 4 items
-        ArrayList<ChartLineModel> listLine = new ArrayList<ChartLineModel>();
-        ArrayList<ChartBarModel> listBar = new ArrayList<ChartBarModel>();
-        for (int i = 0; i < 4; i++) {
-
-            if(i == 0) {
-                listLine.add(new ChartLineModel("Ticket Médio Agora - "     + getRandomValue() ,  generateDataLine(i)));
-                listBar.add(new ChartBarModel("Valor Acumulado Agora - "    + getRandomValueAccumulate(i), generateDataBar(i)));
-            } else if(i == 1) {
-                listLine.add(new ChartLineModel("Ticket Médio na Semana - "     + getRandomValue(), generateDataLine(i)));
-                listBar.add(new ChartBarModel("Valor Acumulado na Semana - "    + getRandomValueAccumulate(i), generateDataBar(i)));
-            } else if(i == 2) {
-                listLine.add(new ChartLineModel("Ticket Médio no Mês - "    + getRandomValue(), generateDataLine(i)));
-                listBar.add(new ChartBarModel("Valor Acumulado no Mês - "   + getRandomValueAccumulate(i), generateDataBar(i)));
-            } else if(i == 3) {
-                listLine.add(new ChartLineModel("Ticket Médio no Ano - "    + getRandomValue(), generateDataLine(i)));
-                listBar.add(new ChartBarModel("Valor Acumulado no Ano - "   + getRandomValueAccumulate(i), generateDataBar(i)));
-            }
-        }
-
-        chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine);
-        chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar);
-        lv.setAdapter(chartLineAdapter);
-
         segmented = (SegmentedGroup) view.findViewById(R.id.segmented);
         segmented.setOnCheckedChangeListener(this);
 
-        connectService();
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(DATEPICKER_TAG) && bundle.containsKey(DATEPICKER_2_TAG) ) {
+            connectService(bundle.getString(DATEPICKER_TAG),
+                    bundle.getString(DATEPICKER_2_TAG));
+        }
+        else {
+            connectService();
+        }
+
 
     }
 
@@ -132,11 +127,11 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.button21:
-//                Toast.makeText(getActivity(), "One", Toast.LENGTH_SHORT).show();
+                selectedSegmentIndex = 0;
                 lv.setAdapter(chartLineAdapter);
                 return;
             case R.id.button22:
-//                Toast.makeText(getActivity(), "Two", Toast.LENGTH_SHORT).show();
+                selectedSegmentIndex = 1;
                 lv.setAdapter(chartBarAdapter);
                 return;
             default:
@@ -162,7 +157,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
     }
 
-    private String getRandomValue(){
+/*    private String getRandomValue(){
 
         DecimalFormat mFormat = new DecimalFormat("###,###,###,##0.00");
         return  "R$ " + mFormat.format((Math.random() * 65) + 10);
@@ -181,7 +176,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
             return  "R$ " + mFormat.format((Math.random() * 1000000) + 1000000);
         }
 
-    }
+    }*/
 
 
     private class ChartDataLineAdapter extends ArrayAdapter<ChartLineModel> {
@@ -329,142 +324,300 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         }
     }
 
-    private LineData generateDataLine(int index) {
-
-        ArrayList<String> labels;
-        if(index == 0) {
-            labels = getNow();
-        } else if(index == 1) {
-            labels = getWeek();
-        } else if(index == 2) {
-            labels = getMonth();
-        } else {
-            labels = getMonths();
-        }
-
-        ArrayList<Entry> e1 = new ArrayList<Entry>();
-
-        for (int i = 0; i < labels.size(); i++) {
-            e1.add(new Entry((int) (Math.random() * 65) + 10, i));
-        }
-
-        LineDataSet d1 = new LineDataSet(e1, "");
-        d1.setLineWidth(3.0f);
-        d1.setHighLightColor(ColorTemplate.COLORFUL_COLORS[index]);
-        d1.setColor(ColorTemplate.COLORFUL_COLORS[index]);
-        d1.setCircleColor(ColorTemplate.COLORFUL_COLORS[index]);
-        d1.setDrawValues(false);
-
-        LineData cd = new LineData(labels, d1);
-        return cd;
-    }
-
-    private BarData generateDataBar(int index){
-        ArrayList<String> labels;
-        if(index == 0) {
-            labels = getNow();
-        } else if(index == 1) {
-            labels = getWeek();
-        } else if(index == 2) {
-            labels = getMonth();
-        } else {
-            labels = getMonths();
-        }
-
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-        for (int i = 0; i < labels.size(); i++) {
-            if(index == 0) {
-                entries.add(new BarEntry((int)(Math.random() * 5000) + 5000, i));
-            } else if(index == 1) {
-                entries.add(new BarEntry((int)(Math.random() * 20000) + 20000, i));
-            } else if(index == 2) {
-                entries.add(new BarEntry((int)(Math.random() * 100000) + 100000, i));
-            } else {
-                entries.add(new BarEntry((int)(Math.random() * 1000000) + 1000000, i));
-            }
-        }
-
-        BarDataSet d = new BarDataSet(entries, "");
-        d.setBarSpacePercent(20f);
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        d.setHighLightAlpha(255);
-
-        return new BarData(labels, d);
-    }
-
-
-    private ArrayList<String> getNow() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        m.add("10:00");
-        m.add("11:00");
-        m.add("12:00");
-        m.add("13:00");
-        m.add("14:00");
-        m.add("15:00");
-        m.add("16:00");
-        m.add("17:00");
-        return m;
-    }
-
-    private ArrayList<String> getWeek() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        m.add("SEG");
-        m.add("TER");
-        m.add("QUA");
-        m.add("QUI");
-        m.add("SEX");
-        m.add("SAB");
-        m.add("DOM");
-        return m;
-    }
-
-    private ArrayList<String> getMonth() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        for (int i = 1; i <=30; i++){
-            m.add("" + i);
-        }
-
-        return m;
-    }
-
-    private ArrayList<String> getMonths() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        m.add("Jan");
-        m.add("Feb");
-        m.add("Mar");
-        m.add("Abr");
-        m.add("Mai");
-        m.add("Jun");
-        m.add("Jul");
-        m.add("Ago");
-        m.add("Set");
-        m.add("Out");
-        m.add("Nov");
-        m.add("Dez");
-        return m;
-    }
-
+//    private LineData generateDataLine(int index) {
+//
+//        ArrayList<String> labels;
+//        if(index == 0) {
+//            labels = getNow();
+//        } else if(index == 1) {
+//            labels = getWeek();
+//        } else if(index == 2) {
+//            labels = getMonth();
+//        } else {
+//            labels = getMonths();
+//        }
+//
+//        ArrayList<Entry> e1 = new ArrayList<Entry>();
+//
+//        for (int i = 0; i < labels.size(); i++) {
+//            e1.add(new Entry((int) (Math.random() * 65) + 10, i));
+//        }
+//
+//        LineDataSet d1 = new LineDataSet(e1, "");
+//        d1.setLineWidth(3.0f);
+//        d1.setHighLightColor(ColorTemplate.COLORFUL_COLORS[index]);
+//        d1.setColor(ColorTemplate.COLORFUL_COLORS[index]);
+//        d1.setCircleColor(ColorTemplate.COLORFUL_COLORS[index]);
+//        d1.setDrawValues(false);
+//
+//        LineData cd = new LineData(labels, d1);
+//        return cd;
+//    }
+//
+//    private BarData generateDataBar(int index){
+//        ArrayList<String> labels;
+//        if(index == 0) {
+//            labels = getNow();
+//        } else if(index == 1) {
+//            labels = getWeek();
+//        } else if(index == 2) {
+//            labels = getMonth();
+//        } else {
+//            labels = getMonths();
+//        }
+//
+//        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+//        for (int i = 0; i < labels.size(); i++) {
+//            if(index == 0) {
+//                entries.add(new BarEntry((int)(Math.random() * 5000) + 5000, i));
+//            } else if(index == 1) {
+//                entries.add(new BarEntry((int)(Math.random() * 20000) + 20000, i));
+//            } else if(index == 2) {
+//                entries.add(new BarEntry((int)(Math.random() * 100000) + 100000, i));
+//            } else {
+//                entries.add(new BarEntry((int)(Math.random() * 1000000) + 1000000, i));
+//            }
+//        }
+//
+//        BarDataSet d = new BarDataSet(entries, "");
+//        d.setBarSpacePercent(20f);
+//        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//        d.setHighLightAlpha(255);
+//
+//        return new BarData(labels, d);
+//    }
+//
+//
+//    private ArrayList<String> getNow() {
+//
+//        ArrayList<String> m = new ArrayList<String>();
+//        m.add("10:00");
+//        m.add("11:00");
+//        m.add("12:00");
+//        m.add("13:00");
+//        m.add("14:00");
+//        m.add("15:00");
+//        m.add("16:00");
+//        m.add("17:00");
+//
+//        return m;
+//    }
+//
+//    private ArrayList<String> getWeek() {
+//
+//        ArrayList<String> m = new ArrayList<String>();
+//        m.add("SEG");
+//        m.add("TER");
+//        m.add("QUA");
+//        m.add("QUI");
+//        m.add("SEX");
+//        m.add("SAB");
+//        m.add("DOM");
+//        return m;
+//    }
+//
+//    private ArrayList<String> getMonth() {
+//
+//        ArrayList<String> m = new ArrayList<String>();
+//        for (int i = 1; i <=30; i++){
+//            m.add("" + i);
+//        }
+//
+//        return m;
+//    }
+//
+//    private ArrayList<String> getMonths() {
+//
+//        ArrayList<String> m = new ArrayList<String>();
+//        m.add("Jan");
+//        m.add("Feb");
+//        m.add("Mar");
+//        m.add("Abr");
+//        m.add("Mai");
+//        m.add("Jun");
+//        m.add("Jul");
+//        m.add("Ago");
+//        m.add("Set");
+//        m.add("Out");
+//        m.add("Nov");
+//        m.add("Dez");
+//        return m;
+//    }
 
 
     public void connectService() {
 
+        showProgress();
         RestClient restClient = new RestClient();
-        restClient.getApiService().obtainFaturamento(new Callback<ApiFaturamento>() {
-            @Override
-            public void success(ApiFaturamento apiFaturamento, Response response) {
-                Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        restClient.getApiService().obtainFaturamento(connection);
     }
 
+    public void connectService(String dateOne, String datetwo) {
+
+        showProgress();
+        RestClient restClient = new RestClient();
+        restClient.getApiService().obtainFaturamentoByDate(dateOne, datetwo, connection);
+    }
+
+
+    public void pupulateData(ApiFaturamento apiFaturamento) {
+
+        //        // 4 items
+        ArrayList<ChartLineModel> listLine = new ArrayList<>();
+        ArrayList<ChartBarModel> listBar = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+
+            ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
+            if(i == 0) {
+                listLine.add(new ChartLineModel("Ticket Médio  - $ "     + fat.getMedio(),  getDaysLine(fat.getPorDia(), 0)));
+                listBar.add(new ChartBarModel("Valor Acumulado - "    + fat.getAcumulado(), getDaysBar(fat.getPorDia(), 1) ));
+            }
+//            else if(i == 1) {
+//                listLine.add(new ChartLineModel("Ticket Médio na Semana - "     + getRandomValue(), generateDataLine(i)));
+//                listBar.add(new ChartBarModel("Valor Acumulado na Semana - "    + getRandomValueAccumulate(i), generateDataBar(i)));
+            else if(i == 1) {
+                listLine.add(new ChartLineModel("Ticket Médio nos Meses", getMonthsLine(fat.getPorMes(), 0) ));
+                listBar.add(new ChartBarModel("Valor Acumulado nos Meses ",getMonthsBar(fat.getPorMes(), 1) ));
+            }
+// else if(i == 3) {
+//                listLine.add(new ChartLineModel("Ticket Médio no Ano - "    + getRandomValue(), generateDataLine(i)));
+//                listBar.add(new ChartBarModel("Valor Acumulado no Ano - "   + getRandomValueAccumulate(i), generateDataBar(i)));
+//            }
+        }
+
+        chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine);
+        chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar);
+        lv.setAdapter(chartLineAdapter);
+
+    }
+
+    private LineData getDaysLine(List<ApiFaturamento.Faturamento.PorDia> porDiaList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Entry> e1 = new ArrayList<>();
+
+        for (int i = 0; i < porDiaList.size(); i++) {
+            ApiFaturamento.Faturamento.PorDia porDia = porDiaList.get(i);
+            labels.add(porDia.getDia());
+
+            if (segmentIndex == 0)
+                e1.add(new Entry(Float.parseFloat(porDia.getMedio()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porDia.getAcumulado()), i));
+        }
+
+        return new LineData(labels, getLineDataSet(e1, "", 0));
+    }
+
+//    private LineData getWeeksLine(List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanaList, int segmentIndex){
+//
+//        ArrayList<String> labels = new ArrayList<>();
+//        ArrayList<Entry> e1 = new ArrayList<>();
+//
+//        for (int i = 0; i < porDiaList.size(); i++) {
+//            ApiFaturamento.Faturamento.PorDia porDia = porDiaList.get(i);
+//            labels.add(porDia.getDia());
+//
+//            if (segmentIndex == 0)
+//                e1.add(new Entry(Float.parseFloat(porDia.getMedio()), i));
+//            else
+//                e1.add(new Entry(Float.parseFloat(porDia.getAcumulado()), i));
+//        }
+//
+//        return new LineData(labels, getLineDataSet(e1, "", 0));
+//    }
+
+    private LineData getMonthsLine(List<ApiFaturamento.Faturamento.PorMes> porMesList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Entry> e1 = new ArrayList<>();
+
+        for (int i = 0; i < porMesList.size(); i++) {
+            ApiFaturamento.Faturamento.PorMes porMes = porMesList.get(i);
+            labels.add("Mês " + porMes.getMes());
+
+            if (segmentIndex == 0)
+                e1.add(new Entry(Float.parseFloat(porMes.getMedio()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porMes.getAcumulado()), i));
+        }
+
+        return new LineData(labels, getLineDataSet(e1, "", 0));
+    }
+
+    private BarData getDaysBar(List<ApiFaturamento.Faturamento.PorDia> porDiaList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < porDiaList.size(); i++) {
+            ApiFaturamento.Faturamento.PorDia porDia = porDiaList.get(i);
+            labels.add(porDia.getDia());
+
+            if (segmentIndex == 0)
+                entries.add(new BarEntry(Float.parseFloat(porDia.getMedio()), i));
+            else {
+                entries.add(new BarEntry(Float.parseFloat(porDia.getAcumulado()), i));
+            }
+        }
+
+        return new BarData(labels, getBarDataSet(entries, ""));
+    }
+
+    private BarData getMonthsBar(List<ApiFaturamento.Faturamento.PorMes> porMesList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < porMesList.size(); i++) {
+            ApiFaturamento.Faturamento.PorMes porMes = porMesList.get(i);
+            labels.add("Mês " + porMes.getMes());
+
+            if (segmentIndex == 0)
+                entries.add(new BarEntry(Float.parseFloat(porMes.getMedio()), i));
+            else {
+                entries.add(new BarEntry(Float.parseFloat(porMes.getAcumulado()), i));
+            }
+        }
+
+        return new BarData(labels, getBarDataSet(entries, ""));
+    }
+
+
+
+    private LineDataSet getLineDataSet(List<Entry> e1, String label, int indexColor) {
+
+        LineDataSet d1 = new LineDataSet(e1, "");
+        d1.setLineWidth(3.0f);
+        d1.setHighLightColor(ColorTemplate.COLORFUL_COLORS[indexColor]);
+        d1.setColor(ColorTemplate.COLORFUL_COLORS[indexColor]);
+        d1.setCircleColor(ColorTemplate.COLORFUL_COLORS[indexColor]);
+        d1.setDrawValues(false);
+
+        return d1;
+    }
+
+    private BarDataSet getBarDataSet(List<BarEntry> entries, String label) {
+        BarDataSet d = new BarDataSet(entries, "");
+        d.setBarSpacePercent(20f);
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setHighLightAlpha(255);
+        return d;
+    }
+
+
+    private Callback<ApiFaturamento> connection = new Callback<ApiFaturamento>() {
+        @Override
+        public void success(ApiFaturamento apiFaturamento, Response response) {
+            Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
+            pupulateData(apiFaturamento);
+            hideProgressAfterSecond();
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+            hideProgressAfterSecond();
+        }
+    };
 }

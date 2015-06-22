@@ -14,14 +14,14 @@ public class ApiFaturamento implements Serializable {
     /**
      * faturamento : {"porDia":[],"acumulado":"128.38","ano":2015,"medio":"11.67","porMes":[{"mes":1,"acumulado":"122.37","medio":"13.60","porSemana":[{"semana":4,"acumulado":"122.37","medio":"13.60"}]},{"mes":2,"acumulado":"6.01","medio":"3.01","porSemana":[{"semana":5,"acumulado":"6.01","medio":"3.01"}]}]}
      */
-    @SerializedName("faturamento")
-    private Faturamento faturamento;
+    @SerializedName("list")
+    private List<Faturamento> faturamento;
 
-    public void setFaturamento(Faturamento faturamento) {
+    public void setFaturamento(List<Faturamento> faturamento) {
         this.faturamento = faturamento;
     }
 
-    public Faturamento getFaturamento() {
+    public List<Faturamento> getFaturamento() {
         return faturamento;
     }
 

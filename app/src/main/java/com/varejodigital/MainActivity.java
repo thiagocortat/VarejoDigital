@@ -186,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
                         ParsePush.subscribeInBackground(channel, new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
-                                if (e == null)
-                                    Toast.makeText(getBaseContext(), "FOI ", Toast.LENGTH_LONG).show();
-                                else
-                                    Toast.makeText(getBaseContext(), "ERRO " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                                if (e == null)
+//                                    Toast.makeText(getBaseContext(), "FOI ", Toast.LENGTH_LONG).show();
+//                                else
+//                                    Toast.makeText(getBaseContext(), "ERRO " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
                     }
