@@ -104,7 +104,6 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
             connectService();
         }
 
-
     }
 
 
@@ -324,127 +323,6 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         }
     }
 
-//    private LineData generateDataLine(int index) {
-//
-//        ArrayList<String> labels;
-//        if(index == 0) {
-//            labels = getNow();
-//        } else if(index == 1) {
-//            labels = getWeek();
-//        } else if(index == 2) {
-//            labels = getMonth();
-//        } else {
-//            labels = getMonths();
-//        }
-//
-//        ArrayList<Entry> e1 = new ArrayList<Entry>();
-//
-//        for (int i = 0; i < labels.size(); i++) {
-//            e1.add(new Entry((int) (Math.random() * 65) + 10, i));
-//        }
-//
-//        LineDataSet d1 = new LineDataSet(e1, "");
-//        d1.setLineWidth(3.0f);
-//        d1.setHighLightColor(ColorTemplate.COLORFUL_COLORS[index]);
-//        d1.setColor(ColorTemplate.COLORFUL_COLORS[index]);
-//        d1.setCircleColor(ColorTemplate.COLORFUL_COLORS[index]);
-//        d1.setDrawValues(false);
-//
-//        LineData cd = new LineData(labels, d1);
-//        return cd;
-//    }
-//
-//    private BarData generateDataBar(int index){
-//        ArrayList<String> labels;
-//        if(index == 0) {
-//            labels = getNow();
-//        } else if(index == 1) {
-//            labels = getWeek();
-//        } else if(index == 2) {
-//            labels = getMonth();
-//        } else {
-//            labels = getMonths();
-//        }
-//
-//        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-//        for (int i = 0; i < labels.size(); i++) {
-//            if(index == 0) {
-//                entries.add(new BarEntry((int)(Math.random() * 5000) + 5000, i));
-//            } else if(index == 1) {
-//                entries.add(new BarEntry((int)(Math.random() * 20000) + 20000, i));
-//            } else if(index == 2) {
-//                entries.add(new BarEntry((int)(Math.random() * 100000) + 100000, i));
-//            } else {
-//                entries.add(new BarEntry((int)(Math.random() * 1000000) + 1000000, i));
-//            }
-//        }
-//
-//        BarDataSet d = new BarDataSet(entries, "");
-//        d.setBarSpacePercent(20f);
-//        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-//        d.setHighLightAlpha(255);
-//
-//        return new BarData(labels, d);
-//    }
-//
-//
-//    private ArrayList<String> getNow() {
-//
-//        ArrayList<String> m = new ArrayList<String>();
-//        m.add("10:00");
-//        m.add("11:00");
-//        m.add("12:00");
-//        m.add("13:00");
-//        m.add("14:00");
-//        m.add("15:00");
-//        m.add("16:00");
-//        m.add("17:00");
-//
-//        return m;
-//    }
-//
-//    private ArrayList<String> getWeek() {
-//
-//        ArrayList<String> m = new ArrayList<String>();
-//        m.add("SEG");
-//        m.add("TER");
-//        m.add("QUA");
-//        m.add("QUI");
-//        m.add("SEX");
-//        m.add("SAB");
-//        m.add("DOM");
-//        return m;
-//    }
-//
-//    private ArrayList<String> getMonth() {
-//
-//        ArrayList<String> m = new ArrayList<String>();
-//        for (int i = 1; i <=30; i++){
-//            m.add("" + i);
-//        }
-//
-//        return m;
-//    }
-//
-//    private ArrayList<String> getMonths() {
-//
-//        ArrayList<String> m = new ArrayList<String>();
-//        m.add("Jan");
-//        m.add("Feb");
-//        m.add("Mar");
-//        m.add("Abr");
-//        m.add("Mai");
-//        m.add("Jun");
-//        m.add("Jul");
-//        m.add("Ago");
-//        m.add("Set");
-//        m.add("Out");
-//        m.add("Nov");
-//        m.add("Dez");
-//        return m;
-//    }
-
-
     public void connectService() {
 
         showProgress();
@@ -465,17 +343,26 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         //        // 4 items
         ArrayList<ChartLineModel> listLine = new ArrayList<>();
         ArrayList<ChartBarModel> listBar = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
 
-            ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
+        ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
+        List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanas = new ArrayList<>();
+
+        for (ApiFaturamento.Faturamento.PorMes porMes : fat.getPorMes()) {
+            porSemanas.addAll(porMes.getPorSemana());
+        }
+
+        for (int i = 0; i < 3; i++) {
+
+//            ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
             if(i == 0) {
                 listLine.add(new ChartLineModel("Ticket Médio  - $ "     + fat.getMedio(),  getDaysLine(fat.getPorDia(), 0)));
-                listBar.add(new ChartBarModel("Valor Acumulado - "    + fat.getAcumulado(), getDaysBar(fat.getPorDia(), 1) ));
+                listBar.add(new ChartBarModel("Valor Acumulado - $"    + fat.getAcumulado(), getDaysBar(fat.getPorDia(), 1) ));
             }
-//            else if(i == 1) {
-//                listLine.add(new ChartLineModel("Ticket Médio na Semana - "     + getRandomValue(), generateDataLine(i)));
-//                listBar.add(new ChartBarModel("Valor Acumulado na Semana - "    + getRandomValueAccumulate(i), generateDataBar(i)));
             else if(i == 1) {
+                listLine.add(new ChartLineModel("Ticket Médio nas últimas semanas", getWeeksLine(porSemanas, 0)));
+                listBar.add(new ChartBarModel("Valor Acumulado nas últimas semanas ", getSemanasBar(porSemanas, 1)));
+            }
+            else if(i == 2) {
                 listLine.add(new ChartLineModel("Ticket Médio nos Meses", getMonthsLine(fat.getPorMes(), 0) ));
                 listBar.add(new ChartBarModel("Valor Acumulado nos Meses ",getMonthsBar(fat.getPorMes(), 1) ));
             }
@@ -509,23 +396,23 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         return new LineData(labels, getLineDataSet(e1, "", 0));
     }
 
-//    private LineData getWeeksLine(List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanaList, int segmentIndex){
-//
-//        ArrayList<String> labels = new ArrayList<>();
-//        ArrayList<Entry> e1 = new ArrayList<>();
-//
-//        for (int i = 0; i < porDiaList.size(); i++) {
-//            ApiFaturamento.Faturamento.PorDia porDia = porDiaList.get(i);
-//            labels.add(porDia.getDia());
-//
-//            if (segmentIndex == 0)
-//                e1.add(new Entry(Float.parseFloat(porDia.getMedio()), i));
-//            else
-//                e1.add(new Entry(Float.parseFloat(porDia.getAcumulado()), i));
-//        }
-//
-//        return new LineData(labels, getLineDataSet(e1, "", 0));
-//    }
+    private LineData getWeeksLine(List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanaList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Entry> e1 = new ArrayList<>();
+
+        for (int i = 0; i < porSemanaList.size(); i++) {
+            ApiFaturamento.Faturamento.PorMes.PorSemana porSemana = porSemanaList.get(i);
+            labels.add("" + porSemana.getSemana());
+
+            if (segmentIndex == 0)
+                e1.add(new Entry(Float.parseFloat(porSemana.getMedio()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porSemana.getAcumulado()), i));
+        }
+
+        return new LineData(labels, getLineDataSet(e1, "", 0));
+    }
 
     private LineData getMonthsLine(List<ApiFaturamento.Faturamento.PorMes> porMesList, int segmentIndex){
 
@@ -564,6 +451,25 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         return new BarData(labels, getBarDataSet(entries, ""));
     }
 
+    private BarData getSemanasBar(List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanaList, int segmentIndex){
+
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < porSemanaList.size(); i++) {
+            ApiFaturamento.Faturamento.PorMes.PorSemana porSemana = porSemanaList.get(i);
+            labels.add("" + porSemana.getSemana());
+
+            if (segmentIndex == 0)
+                entries.add(new BarEntry(Float.parseFloat(porSemana.getMedio()), i));
+            else {
+                entries.add(new BarEntry(Float.parseFloat(porSemana.getAcumulado()), i));
+            }
+        }
+
+        return new BarData(labels, getBarDataSet(entries, ""));
+    }
+
     private BarData getMonthsBar(List<ApiFaturamento.Faturamento.PorMes> porMesList, int segmentIndex){
 
         ArrayList<String> labels = new ArrayList<>();
@@ -582,7 +488,6 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
         return new BarData(labels, getBarDataSet(entries, ""));
     }
-
 
 
     private LineDataSet getLineDataSet(List<Entry> e1, String label, int indexColor) {
@@ -609,15 +514,22 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
     private Callback<ApiFaturamento> connection = new Callback<ApiFaturamento>() {
         @Override
         public void success(ApiFaturamento apiFaturamento, Response response) {
-            Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
-            pupulateData(apiFaturamento);
-            hideProgressAfterSecond();
+
+            try {
+                pupulateData(apiFaturamento);
+                hideProgressAfterSecond();
+            }catch (Exception e) {
+                failure(null);
+            }
         }
 
         @Override
         public void failure(RetrofitError error) {
-            Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
+            setContentEmpty(true);
+            setEmptyText("Erro de Conexão, por favor tente novamente!");
             hideProgressAfterSecond();
+
         }
     };
 }

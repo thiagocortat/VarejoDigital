@@ -2,6 +2,9 @@ package com.varejodigital.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -35,6 +38,12 @@ public class ProductFilterFragment extends FilterFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     protected String[] getItems() {
         return getResources().getStringArray(R.array.products_array);
     }
@@ -53,30 +62,7 @@ public class ProductFilterFragment extends FilterFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        showProgress();
-
-        RestClient restClient = new RestClient();
-        restClient.getApiService().obtainProdutos(new Callback<ApiProdutos>() {
-            @Override
-            public void success(ApiProdutos apiProdutos, Response response) {
-//                Toast.makeText(getActivity(), "Foi", Toast.LENGTH_LONG).show();
-
-                setListAdapter(apiProdutos.getList());
-
-                hideProgress();
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-//                Toast.makeText(getActivity(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
-
-                setEmptyText("Erro de Conexão, por favor tente novamente!");
-
-                hideProgress();
-            }
-        });
-
+        connectService();
     }
 
     public void setListAdapter(List<ApiProdutos.Produto> list){
@@ -88,7 +74,50 @@ public class ProductFilterFragment extends FilterFragment {
         }
 
         mItems = new ArrayList<>(list);
-        new Poplulate().execute(mItems);
 
+        new Poplulate().execute(mItems);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_product_detail, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.reload)
+            connectService();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void connectService() {
+        showProgress();
+
+        RestClient restClient = new RestClient();
+        restClient.getApiService().obtainProdutos(new Callback<ApiProdutos>() {
+            @Override
+            public void success(ApiProdutos apiProdutos, Response response) {
+
+                try {
+                    setListAdapter(apiProdutos.getList());
+                    hideProgress();
+                }catch (Exception e) {
+                    failure(null);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+                setContentEmpty(true);
+                setEmptyText("Erro de Conexão, por favor tente novamente!");
+                hideProgress();
+            }
+        });
+    }
+
 }

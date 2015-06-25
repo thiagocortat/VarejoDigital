@@ -113,6 +113,7 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
 				mEmptyView = newView.findViewById(android.R.id.empty);
                 if (mEmptyContainer != null) {
                     mEmptyContainer.setVisibility(View.GONE);
+                    setContentEmpty(false);
                 }
 			}
 			
@@ -168,9 +169,10 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
      * @see #setEmptyText(int)
      */
     public void setEmptyText(CharSequence text) {
-    	showProgress();
+    	//showProgress();
         if (mEmptyView != null && mEmptyView instanceof TextView) {
             ((TextView) mEmptyView).setText(text);
+
         } else {
             throw new IllegalStateException("Can't be used with a custom content view");
         }
@@ -185,7 +187,7 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
      * @see #isContentEmpty()
      */
     public void setContentEmpty(boolean isEmpty) {
-    	showProgress();
+//    	showProgress();
         if (newView == null) {
             throw new IllegalStateException("Content view must be initialized before");
         }
