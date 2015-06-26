@@ -97,17 +97,6 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
                 mCircularProgressBar = (CircularProgressBar) newView.findViewById(R.id.my_animation);
                 ((CircularProgressDrawable)mCircularProgressBar.getIndeterminateDrawable()).start();
 
-//                myAnimation = (ImageView)newView.findViewById(R.id.my_animation);
-//                myAnimationDrawable = (AnimationDrawable)myAnimation.getDrawable();
-//                myAnimation.post(
-//                        new Runnable(){
-//
-//                            @Override
-//                            public void run() {
-//                                myAnimationDrawable.start();
-//                            }
-//                        });
-
                 mEmptyContainer = newView.findViewById(R.id.emptyContainer);
                 mEmptyImageView = newView.findViewById(R.id.imageEmpty);
 				mEmptyView = newView.findViewById(android.R.id.empty);
@@ -116,10 +105,14 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
                     setContentEmpty(false);
                 }
 			}
+            else if (mIsContentEmpty) {
+                setContentEmpty(false);
+            }
 			
 		} catch (Exception e) {
             e.printStackTrace();
         }
+
 		
 	}
 	
