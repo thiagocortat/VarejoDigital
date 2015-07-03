@@ -38,7 +38,8 @@ public class RestClient {
 //                .setClient(new OkClient(new OkHttpClient()));
 
             // concatenate username and password with colon for authentication
-            final String credentials = "marcelosrodrigues@globo.com" + ":" + "12345678";
+//            final String credentials = "marcelosrodrigues@globo.com" + ":" + "12345678";
+            final String credentials = "thiagocortat@gmail.com" + ":" + "12345678";
             builder.setRequestInterceptor(new RequestInterceptor() {
                 @Override
                 public void intercept(RequestFacade request) {
