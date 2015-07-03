@@ -43,6 +43,16 @@ public class ApiFaturamento implements Serializable {
         private String medio;
         @SerializedName("porMes")
         private List<PorMes> porMes;
+        @SerializedName("ticket")
+        private String ticket;
+
+        public String getTicket() {
+            return ticket;
+        }
+
+        public void setTicket(String ticket) {
+            this.ticket = ticket;
+        }
 
         public void setPorDia(List<PorDia> porDia) {
             this.porDia = porDia;
@@ -99,6 +109,16 @@ public class ApiFaturamento implements Serializable {
             private String medio;
             @SerializedName("porSemana")
             private List<PorSemana> porSemana;
+            @SerializedName("ticket")
+            private String ticket;
+
+            public String getTicket() {
+                return ticket;
+            }
+
+            public void setTicket(String ticket) {
+                this.ticket = ticket;
+            }
 
             public void setMes(int mes) {
                 this.mes = mes;
@@ -144,6 +164,16 @@ public class ApiFaturamento implements Serializable {
                 private String acumulado;
                 @SerializedName("medio")
                 private String medio;
+                @SerializedName("ticket")
+                private String ticket;
+
+                public String getTicket() {
+                    return ticket;
+                }
+
+                public void setTicket(String ticket) {
+                    this.ticket = ticket;
+                }
 
                 public void setSemana(int semana) {
                     this.semana = semana;
@@ -183,6 +213,16 @@ public class ApiFaturamento implements Serializable {
             private String acumulado;
             @SerializedName("medio")
             private String medio;
+            @SerializedName("ticket")
+            private String ticket;
+
+            public String getTicket() {
+                return ticket;
+            }
+
+            public void setTicket(String ticket) {
+                this.ticket = ticket;
+            }
 
             public void setDia(String dia) {
                 this.dia = dia;

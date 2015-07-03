@@ -55,7 +55,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
     ListView lv;
     ValueFormatter customFormat;
     SegmentedGroup segmented;
-    ChartDataLineAdapter chartLineAdapter;
+    ChartDataLineAdapter chartLineAdapter, chartLineTicketsAdapter;
     ChartBarDataAdapter chartBarAdapter;
 
     public static final String DATEPICKER_TAG = "datepicker";
@@ -337,12 +337,11 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         restClient.getApiService().obtainFaturamentoByDate(dateOne, datetwo, connection);
     }
 
-
     public void pupulateData(ApiFaturamento apiFaturamento) {
 
-        //        // 4 items
         ArrayList<ChartLineModel> listLine = new ArrayList<>();
         ArrayList<ChartBarModel> listBar = new ArrayList<>();
+        ArrayList<ChartLineModel> listTickets = new ArrayList<>();
 
         ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
         List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanas = new ArrayList<>();
@@ -357,14 +356,17 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
             if(i == 0) {
                 listLine.add(new ChartLineModel("Ticket Médio  - $ "     + fat.getMedio(),  getDaysLine(fat.getPorDia(), 0)));
                 listBar.add(new ChartBarModel("Valor Acumulado - $"    + fat.getAcumulado(), getDaysBar(fat.getPorDia(), 1) ));
+                listTickets.add(new ChartLineModel("Tickets  - "     + fat.getTicket(),  getDaysLine(fat.getPorDia(), 2)));
             }
             else if(i == 1) {
                 listLine.add(new ChartLineModel("Ticket Médio nas últimas semanas", getWeeksLine(porSemanas, 0)));
                 listBar.add(new ChartBarModel("Valor Acumulado nas últimas semanas ", getSemanasBar(porSemanas, 1)));
+                listTickets.add(new ChartLineModel("Tickets nas últimas semanas ",  getWeeksLine(porSemanas, 2)));
             }
             else if(i == 2) {
                 listLine.add(new ChartLineModel("Ticket Médio nos Meses", getMonthsLine(fat.getPorMes(), 0) ));
                 listBar.add(new ChartBarModel("Valor Acumulado nos Meses ",getMonthsBar(fat.getPorMes(), 1) ));
+                listTickets.add(new ChartLineModel("Tickets nos Meses ",  getMonthsLine(fat.getPorMes(), 2)));
             }
 // else if(i == 3) {
 //                listLine.add(new ChartLineModel("Ticket Médio no Ano - "    + getRandomValue(), generateDataLine(i)));
@@ -374,6 +376,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
         chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine);
         chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar);
+        chartLineTicketsAdapter = new ChartDataLineAdapter(getActivity(), listLine);
         lv.setAdapter(chartLineAdapter);
 
     }
@@ -389,8 +392,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 e1.add(new Entry(Float.parseFloat(porDia.getMedio()), i));
-            else
+            else  if (segmentIndex == 1)
                 e1.add(new Entry(Float.parseFloat(porDia.getAcumulado()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porDia.getTicket()), i));
         }
 
         return new LineData(labels, getLineDataSet(e1, "", 0));
@@ -407,8 +412,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 e1.add(new Entry(Float.parseFloat(porSemana.getMedio()), i));
-            else
+            else  if (segmentIndex == 1)
                 e1.add(new Entry(Float.parseFloat(porSemana.getAcumulado()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porSemana.getTicket()), i));
         }
 
         return new LineData(labels, getLineDataSet(e1, "", 0));
@@ -425,8 +432,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 e1.add(new Entry(Float.parseFloat(porMes.getMedio()), i));
-            else
+            else  if (segmentIndex == 1)
                 e1.add(new Entry(Float.parseFloat(porMes.getAcumulado()), i));
+            else
+                e1.add(new Entry(Float.parseFloat(porMes.getTicket()), i));
         }
 
         return new LineData(labels, getLineDataSet(e1, "", 0));
@@ -443,9 +452,11 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 entries.add(new BarEntry(Float.parseFloat(porDia.getMedio()), i));
-            else {
+            else if(segmentIndex == 1)
                 entries.add(new BarEntry(Float.parseFloat(porDia.getAcumulado()), i));
-            }
+            else
+                entries.add(new BarEntry(Float.parseFloat(porDia.getTicket()), i));
+
         }
 
         return new BarData(labels, getBarDataSet(entries, ""));
@@ -462,9 +473,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 entries.add(new BarEntry(Float.parseFloat(porSemana.getMedio()), i));
-            else {
+            else if(segmentIndex == 1)
                 entries.add(new BarEntry(Float.parseFloat(porSemana.getAcumulado()), i));
-            }
+            else
+                entries.add(new BarEntry(Float.parseFloat(porSemana.getTicket()), i));
         }
 
         return new BarData(labels, getBarDataSet(entries, ""));
@@ -481,9 +493,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             if (segmentIndex == 0)
                 entries.add(new BarEntry(Float.parseFloat(porMes.getMedio()), i));
-            else {
+            else if(segmentIndex == 1)
                 entries.add(new BarEntry(Float.parseFloat(porMes.getAcumulado()), i));
-            }
+            else
+                entries.add(new BarEntry(Float.parseFloat(porMes.getTicket()), i));
         }
 
         return new BarData(labels, getBarDataSet(entries, ""));

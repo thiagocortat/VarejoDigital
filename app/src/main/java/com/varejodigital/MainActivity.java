@@ -33,6 +33,7 @@ import com.varejodigital.fragments.CRMFragment;
 import com.varejodigital.fragments.EmployeeFilterFragment;
 import com.varejodigital.fragments.FaturamentoFragment;
 import com.varejodigital.fragments.ProductFilterFragment;
+import com.varejodigital.fragments.SampleBarCodeScannerFragment;
 import com.varejodigital.fragments.SettingsFragment;
 import com.varejodigital.fragments.base.DemoFragment;
 import com.varejodigital.model.ApiChannels;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("RH").withIdentifier(2),
                         new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
                         new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("Código de Barras"),
                         new SecondaryDrawerItem().withName("Configuração"),
                         new SecondaryDrawerItem().withName("Logout")
                 )
@@ -112,9 +114,13 @@ public class MainActivity extends AppCompatActivity {
                             Fragment f = DemoFragment.newInstance("");
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 5) {
+                            SampleBarCodeScannerFragment f = SampleBarCodeScannerFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                        } else if (i == 6) {
                             SettingsFragment f = SettingsFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 6) {
+                        }
+                        else if (i == 7) {
                             ParseUser.logOut();
                             loadLoginView();
                         }

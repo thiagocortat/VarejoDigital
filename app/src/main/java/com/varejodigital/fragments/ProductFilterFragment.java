@@ -14,7 +14,9 @@ import com.varejodigital.activities.ProductDetailActivity;
 import com.varejodigital.fragments.base.FilterFragment;
 import com.varejodigital.model.ApiProdutos;
 import com.varejodigital.repository.RestClient;
+import com.varejodigital.utilities.CacheManager;
 import com.varejodigital.utilities.Constante;
+import com.varejodigital.utilities.Hash;
 import com.varejodigital.utilities.StringUtils;
 
 import java.io.Serializable;
@@ -31,6 +33,8 @@ import retrofit.client.Response;
  * Created by thiagocortat on 3/28/15.
  */
 public class ProductFilterFragment extends FilterFragment {
+
+    public static final String TAG = "ProductFilterFragment";
 
     public static ProductFilterFragment newInstance() {
         ProductFilterFragment f = new ProductFilterFragment();
@@ -105,6 +109,7 @@ public class ProductFilterFragment extends FilterFragment {
                 try {
                     setListAdapter(apiProdutos.getList());
                     hideProgress();
+                    CacheManager.write(getActivity(), Hash.md5(TAG), apiProdutos);
                 }catch (Exception e) {
                     failure(null);
                 }
@@ -113,8 +118,15 @@ public class ProductFilterFragment extends FilterFragment {
             @Override
             public void failure(RetrofitError error) {
 
-                setContentEmpty(true);
-                setEmptyText("Erro de Conexão, por favor tente novamente!");
+                ApiProdutos result = (ApiProdutos) CacheManager.readObject(getActivity(), Hash.md5(TAG));
+                if (result != null) {
+                    setListAdapter(result.getList());
+                }
+                else {
+                    setContentEmpty(true);
+                    setEmptyText("Erro de Conexão, por favor tente novamente!");
+                }
+
                 hideProgress();
             }
         });

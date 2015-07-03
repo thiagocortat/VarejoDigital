@@ -4,11 +4,15 @@ import com.varejodigital.model.ApiChannels;
 import com.varejodigital.model.ApiFaturamento;
 import com.varejodigital.model.ApiProduto;
 import com.varejodigital.model.ApiProdutos;
+import com.varejodigital.model.ApiUpdateProduto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 
+import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.Path;
@@ -25,6 +29,16 @@ public interface ApiService {
     @GET("/{id}/produto.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
     void obtainProduto(@Path("id") int groupId, Callback<ApiProduto> callback);
+
+
+    @GET("/produto/{codBarra}.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void obtainProdutoByCode(@Path("codBarra") int groupId, Callback<ApiProduto> callback);
+
+    @GET("/produto/update.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void updateProduto(@Body ApiUpdateProduto apiUpdateProduto, Callback<HashMap> callback);
+
 
     @GET("/financeiro/faturamento.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
