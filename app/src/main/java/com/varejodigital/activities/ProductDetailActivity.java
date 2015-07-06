@@ -2,6 +2,7 @@ package com.varejodigital.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,33 +25,25 @@ import retrofit.client.Response;
 
 public class ProductDetailActivity extends BaseActivity {
 
-    @InjectView(R.id.imageProduct)
-    ImageView imageProduct;
-    @InjectView(R.id.txtName)
-    TextView txtName;
-    @InjectView(R.id.txCusto)
-    TextView txCusto;
-    @InjectView(R.id.txPrice)
-    TextView txPrice;
-    @InjectView(R.id.txLucro)
-    TextView txLucro;
-    @InjectView(R.id.txMinimo)
-    TextView txMinimo;
-    @InjectView(R.id.txMaximo)
-    TextView txMaximo;
-    @InjectView(R.id.txDisponivel)
-    TextView txDisponivel;
-    @InjectView(R.id.txRessuprimento)
-    TextView txRessuprimento;
-    @InjectView(R.id.txVendaDia)
-    TextView txVendaDia;
-    @InjectView(R.id.txVendaSemana)
-    TextView txVendaSemana;
-    @InjectView(R.id.txVendaMes)
-    TextView txVendaMes;
-    @InjectView(R.id.linearFornecedor)
-    LinearLayout linearFornecedor;
-
+    @InjectView(R.id.imageProduct)      ImageView imageProduct;
+    @InjectView(R.id.txtName)           TextView txtName;
+    @InjectView(R.id.txCusto)           TextView txCusto;
+    @InjectView(R.id.txPrice)           TextView txPrice;
+    @InjectView(R.id.txLucro)           TextView txLucro;
+    @InjectView(R.id.txMinimo)          TextView txMinimo;
+    @InjectView(R.id.txMaximo)          TextView txMaximo;
+    @InjectView(R.id.txDisponivel)      TextView txDisponivel;
+    @InjectView(R.id.txRessuprimento)   TextView txRessuprimento;
+    @InjectView(R.id.txVendaDia)        TextView txVendaDia;
+    @InjectView(R.id.txVendaSemana)     TextView txVendaSemana;
+    @InjectView(R.id.txVendaMes)        TextView txVendaMes;
+    @InjectView(R.id.linearFornecedor)  LinearLayout linearFornecedor;
+    @InjectView(R.id.txMinimoGondola)   TextView txMinimoGondola;
+    @InjectView(R.id.txMaximoGondola)   TextView txMaximoGondola;
+    @InjectView(R.id.txDisponivelGondola)TextView txDisponivelGondola;
+    @InjectView(R.id.linearLoja)        LinearLayout linearLoja;
+    @InjectView(R.id.txLojaNome)        TextView txLojaNome;
+    @InjectView(R.id.txLojaCanal)       TextView txLojaCanal;
 
     private ApiProduto.Produto mProduto;
     private int mID;
@@ -96,14 +89,31 @@ public class ProductDetailActivity extends BaseActivity {
                         txLucro.setText("---");
                     }
 
+                    //Estoque
                     txMinimo.setText("" + mProduto.getEstoque().getMinimo());
                     txMaximo.setText("" + mProduto.getEstoque().getMaximo());
                     txDisponivel.setText("" + mProduto.getEstoque().getDisponivel());
                     txRessuprimento.setText("" + mProduto.getEstoque().getPontoRessuprimento());
 
+                    //Gondola
+                    txMinimoGondola.setText("" + mProduto.getGondola().getMinimo());
+                    txMaximoGondola.setText("" + mProduto.getGondola().getMaximo());
+                    txDisponivelGondola.setText("" + mProduto.getGondola().getDisponivel());
+
+                    //Vendas
                     txVendaDia.setText("" + mProduto.getVendaDia().getQuantidade());
                     txVendaSemana.setText("" + mProduto.getVendaSemana().getQuantidade());
                     txVendaMes.setText("" + mProduto.getVendaMes().getQuantidade());
+
+                    //Loja
+                    if (mProduto.getLoja() != null) {
+                        String name = getString(R.string.product_name_var, mProduto.getLoja().getNome());
+                        String channel = getString(R.string.product_channel_var, mProduto.getLoja().getCanal());
+                        txLojaNome.setText(Html.fromHtml(name));
+                        txLojaCanal.setText(Html.fromHtml(channel));
+                    }
+                    else
+                        linearLoja.setVisibility(View.GONE);
 
                     List<ApiProduto.Produto.Fornecedor> fornecedores = mProduto.getFornecedores();
                     if (fornecedores != null && fornecedores.size() > 0) {

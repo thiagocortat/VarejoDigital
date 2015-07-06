@@ -1,10 +1,118 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.varejodigital.fragments.UpdateEstoqueFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:id="@+id/layoutBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin">
 
-</FrameLayout>
+    <TextView android:id="@+id/txLabel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:text="Informe o Código de Barras" />
+
+    <EditText
+        android:id="@+id/editBarCode"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/txLabel1"
+        android:layout_toLeftOf="@+id/btScanBarCode"
+        android:inputType="numberSigned"
+        android:hint="Código de Barras"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pesquisar Produto"
+        android:id="@+id/btSendBarCode"
+        android:layout_below="@+id/editBarCode"
+        android:enabled="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/btScanBarCode"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:layout_alignBottom="@+id/editBarCode"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/txLabel1"
+        android:src="@drawable/barcode"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutEstoque"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layoutBarcode"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_margin="@dimen/margin">
+
+        <TextView android:id="@+id/txTitleUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin_min"
+            android:text="Atualizar Qtd do Produto" />
+
+        <TextView android:id="@+id/txName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_below="@+id/txTitleUpdate"
+            tools:text="Coca-Cola 2L" />
+
+        <TextView android:id="@+id/txLabel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txName"
+            android:text="Número no Estoque" />
+
+        <EditText
+            android:id="@+id/editEstoque"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/txLabel2"
+            android:inputType="numberSigned"
+            android:selectAllOnFocus="true"
+            android:nextFocusForward="@+id/editGondola"
+            android:imeOptions="actionNext"
+            android:hint="Qtd em estoque"/>
+
+        <TextView android:id="@+id/txLabel3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editEstoque"
+            android:text="Número na Gondola" />
+
+        <EditText
+            android:id="@+id/editGondola"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/txLabel3"
+            android:inputType="numberSigned"
+            android:selectAllOnFocus="true"
+            android:hint="Qtd na Gondola"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Atualizar Quantidade"
+            android:id="@+id/btUpdateEstoque"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

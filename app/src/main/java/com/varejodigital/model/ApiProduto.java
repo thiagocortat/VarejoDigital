@@ -212,11 +212,39 @@ public class ApiProduto implements Serializable{
         }
 
         public static class Gondola implements Serializable {
-            /**
-             * prontoReposicao : 0
-             */
+
+            @SerializedName("maximo")
+            private int maximo;
+            @SerializedName("disponivel")
+            private int disponivel;
+            @SerializedName("minimo")
+            private int minimo;
             @SerializedName("prontoReposicao")
             private int prontoReposicao;
+
+            public int getMaximo() {
+                return maximo;
+            }
+
+            public void setMaximo(int maximo) {
+                this.maximo = maximo;
+            }
+
+            public int getDisponivel() {
+                return disponivel;
+            }
+
+            public void setDisponivel(int disponivel) {
+                this.disponivel = disponivel;
+            }
+
+            public int getMinimo() {
+                return minimo;
+            }
+
+            public void setMinimo(int minimo) {
+                this.minimo = minimo;
+            }
 
             public void setProntoReposicao(int prontoReposicao) {
                 this.prontoReposicao = prontoReposicao;

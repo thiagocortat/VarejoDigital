@@ -15,6 +15,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Headers;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
@@ -33,9 +34,9 @@ public interface ApiService {
 
     @GET("/produto/{codBarra}.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
-    void obtainProdutoByCode(@Path("codBarra") int groupId, Callback<ApiProduto> callback);
+    void obtainProdutoByCode(@Path("codBarra") String barcode, Callback<ApiProduto> callback);
 
-    @GET("/produto/update.json")
+    @POST("/produto/update.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
     void updateProduto(@Body ApiUpdateProduto apiUpdateProduto, Callback<HashMap> callback);
 

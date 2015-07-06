@@ -6,11 +6,13 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.DateTypeAdapter;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Date;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 /**
@@ -34,8 +36,9 @@ public class RestClient {
 
         RestAdapter.Builder builder= new RestAdapter.Builder()
                 .setConverter(new GsonConverter(gson))
-                .setEndpoint(apiBaseUrl);
-//                .setClient(new OkClient(new OkHttpClient()));
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(apiBaseUrl)
+                .setClient(new OkClient(new OkHttpClient()));
 
             // concatenate username and password with colon for authentication
 //            final String credentials = "marcelosrodrigues@globo.com" + ":" + "12345678";

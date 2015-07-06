@@ -133,6 +133,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
                 selectedSegmentIndex = 1;
                 lv.setAdapter(chartBarAdapter);
                 return;
+            case R.id.button23:
+                selectedSegmentIndex = 2;
+                lv.setAdapter(chartLineTicketsAdapter);
+                return;
             default:
                 // Nothing to do
         }
@@ -156,32 +160,12 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
     }
 
-/*    private String getRandomValue(){
-
-        DecimalFormat mFormat = new DecimalFormat("###,###,###,##0.00");
-        return  "R$ " + mFormat.format((Math.random() * 65) + 10);
-    }
-
-    private String getRandomValueAccumulate(int index){
-
-        DecimalFormat mFormat = new DecimalFormat("#########,##0");
-        if(index == 0) {
-            return  "R$ " + mFormat.format((Math.random() * 5000) + 5000);
-        } else if(index == 1) {
-            return  "R$ " + mFormat.format((Math.random() * 20000) + 20000);
-        } else if(index == 2) {
-            return  "R$ " + mFormat.format((Math.random() * 100000) + 100000);
-        } else {
-            return  "R$ " + mFormat.format((Math.random() * 1000000) + 1000000);
-        }
-
-    }*/
-
-
     private class ChartDataLineAdapter extends ArrayAdapter<ChartLineModel> {
 
-        public ChartDataLineAdapter(Context context, List<ChartLineModel> objects) {
+        int segmentIndex;
+        public ChartDataLineAdapter(Context context, List<ChartLineModel> objects, int segmentIndex) {
             super(context, 0, objects);
+            this.segmentIndex = segmentIndex;
         }
 
         @Override
@@ -222,12 +206,14 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             YAxis leftAxis = holder.chart.getAxisLeft();
             leftAxis.setLabelCount(5);
-            leftAxis.setValueFormatter(customFormat);
+            if (segmentIndex < 2)
+                leftAxis.setValueFormatter(customFormat);
 
             YAxis rightAxis = holder.chart.getAxisRight();
             rightAxis.setLabelCount(5);
             rightAxis.setDrawGridLines(false);
-            rightAxis.setValueFormatter(customFormat);
+            if (segmentIndex < 2)
+                rightAxis.setValueFormatter(customFormat);
 
             // set data
             holder.chart.setData(data.getLineData());
@@ -252,8 +238,10 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
     private class ChartBarDataAdapter extends ArrayAdapter<ChartBarModel> {
 
-        public ChartBarDataAdapter(Context context, List<ChartBarModel> objects) {
+        int segmentIndex;
+        public ChartBarDataAdapter(Context context, List<ChartBarModel> objects, int segmentIndex) {
             super(context, 0, objects);
+            this.segmentIndex = segmentIndex;
         }
 
         @Override
@@ -294,13 +282,15 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
             YAxis leftAxis = holder.chart.getAxisLeft();
             leftAxis.setLabelCount(5);
-            leftAxis.setValueFormatter(customFormat);
             leftAxis.setEnabled(false);
+            if (segmentIndex < 2)
+                leftAxis.setValueFormatter(customFormat);
 
             YAxis rightAxis = holder.chart.getAxisRight();
             rightAxis.setLabelCount(5);
             rightAxis.setDrawGridLines(false);
-            rightAxis.setValueFormatter(customFormat);
+            if (segmentIndex < 2)
+                rightAxis.setValueFormatter(customFormat);
 
             // set data
             holder.chart.setData(data.getBarData());
@@ -374,9 +364,9 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 //            }
         }
 
-        chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine);
-        chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar);
-        chartLineTicketsAdapter = new ChartDataLineAdapter(getActivity(), listLine);
+        chartLineAdapter = new ChartDataLineAdapter(getActivity(), listLine, 0);
+        chartBarAdapter = new ChartBarDataAdapter(getActivity(), listBar, 1);
+        chartLineTicketsAdapter = new ChartDataLineAdapter(getActivity(), listTickets, 2);
         lv.setAdapter(chartLineAdapter);
 
     }
