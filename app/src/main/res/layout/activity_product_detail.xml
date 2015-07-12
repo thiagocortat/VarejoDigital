@@ -229,6 +229,101 @@
         </LinearLayout>
 
 
+            <!-- GONDOLA -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/margin_min"
+                android:background="@color/Silver"/>
+
+            <TextView
+                android:text="Gondola"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Mínimo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    <TextView
+                        android:text="120"
+                        android:id="@+id/txMinimoGondola"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_min"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Máximo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    <TextView
+                        android:id="@+id/txMaximoGondola"
+                        android:text="34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_min"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Disponível"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    <TextView
+                        android:id="@+id/txDisponivelGondola"
+                        android:text="154"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_min"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- VENDAS -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -236,7 +331,7 @@
             android:background="@color/Silver"/>
 
         <TextView
-            android:text="Venda"
+            android:text="Vendas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin"
@@ -317,9 +412,46 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
             </LinearLayout>
 
-
-
         </LinearLayout>
+
+            <!-- Fornecedor -->
+            <LinearLayout
+                android:id="@+id/linearLoja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/margin_min"
+                    android:background="@color/Silver"/>
+
+                <TextView
+                    android:text="Loja: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/txLojaNome"
+                    tools:text="Nome: XPTO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/txLojaCanal"
+                    tools:text="Canal: XPTO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
+
 
             <!-- Fornecedor -->
             <LinearLayout

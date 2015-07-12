@@ -35,6 +35,7 @@ import com.varejodigital.fragments.FaturamentoFragment;
 import com.varejodigital.fragments.ProductFilterFragment;
 import com.varejodigital.fragments.SampleBarCodeScannerFragment;
 import com.varejodigital.fragments.SettingsFragment;
+import com.varejodigital.fragments.UpdateEstoqueFragment;
 import com.varejodigital.fragments.base.DemoFragment;
 import com.varejodigital.model.ApiChannels;
 import com.varejodigital.model.ApiFaturamento;
@@ -114,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
                             Fragment f = DemoFragment.newInstance("");
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 5) {
-                            SampleBarCodeScannerFragment f = SampleBarCodeScannerFragment.newInstance();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+//                            SampleBarCodeScannerFragment f = SampleBarCodeScannerFragment.newInstance();
+                            Fragment f = UpdateEstoqueFragment.newInstance();
+                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         } else if (i == 6) {
                             SettingsFragment f = SettingsFragment.newInstance();
                             getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();

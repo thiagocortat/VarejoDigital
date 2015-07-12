@@ -69,65 +69,138 @@ public abstract class BaseFragment extends Fragment implements OnLayoutInjectLis
         }
     }
 
-    public void showProgress(){
-		try {
-		
-			if(newView == null){
-				
-				newView = getActivity().getLayoutInflater().inflate(R.layout.fragment_progress, null, false);
+    public void showProgress() {
+
+        showProgress((ViewGroup) getView());
+
+    }
+
+    public void showProgress(ViewGroup viewGroup) {
+
+        try {
+
+            if(newView == null){
+
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    View child = viewGroup.getChildAt(i);
+                    child.setVisibility(View.GONE);
+                }
+
+                newView = getActivity().getLayoutInflater().inflate(R.layout.fragment_progress, null, false);
                 newView.setEnabled(true);
                 newView.setActivated(true);
                 newView.setClickable(true);
-                assert ((ViewGroup) getView()) != null;
-                ((ViewGroup) getView()).addView(newView);
-                ((ViewGroup) getView()).bringChildToFront(newView);
-				 
-				mProgressContainer = newView.findViewById(R.id.progress_container);
+                viewGroup.addView(newView);
+                viewGroup.bringChildToFront(newView);
+                newView.setTag(viewGroup);//new
+
+                mProgressContainer = newView.findViewById(R.id.progress_container);
                 TextView progressTextView = (TextView) newView.findViewById(R.id.progress_text);
 
                 if (!StringUtils.isEmpty(mProgressText)) {
                     progressTextView.setText(mProgressText);
                     progressTextView.setVisibility(View.VISIBLE);
-//                    FontsUtil.setRobotoFont(getActivity(), progressTextView);
                 }
                 else {
                     progressTextView.setVisibility(View.GONE);
                 }
 
-                mCircularProgressBar = (CircularProgressBar) newView.findViewById(R.id.my_animation);
-                ((CircularProgressDrawable)mCircularProgressBar.getIndeterminateDrawable()).start();
 
                 mEmptyContainer = newView.findViewById(R.id.emptyContainer);
                 mEmptyImageView = newView.findViewById(R.id.imageEmpty);
-				mEmptyView = newView.findViewById(android.R.id.empty);
+                mEmptyView = newView.findViewById(android.R.id.empty);
                 if (mEmptyContainer != null) {
                     mEmptyContainer.setVisibility(View.GONE);
                     setContentEmpty(false);
                 }
-			}
+            }
             else if (mIsContentEmpty) {
                 setContentEmpty(false);
             }
-			
-		} catch (Exception e) {
-            e.printStackTrace();
-        }
 
-		
-	}
-	
-	public void hideProgress() {
-		
-		try {
-			if(newView != null  && !mIsContentEmpty){
-				((ViewGroup) getView()).removeView(newView);
-				newView = null;
-			}
-		} catch (Exception e) {
+        } catch (Exception e) {}
+
+    }
+
+    public void hideProgress() {
+
+        try {
+            if(newView != null  && !mIsContentEmpty){
+                ViewGroup parent = (ViewGroup) newView.getTag();
+                parent.removeView(newView);
+//				((ViewGroup) getView()).removeView(newView);
+                newView = null;
+
+                for (int i = 0; i < parent.getChildCount(); i++) {
+                    View child = parent.getChildAt(i);
+                    child.setVisibility(View.VISIBLE);
+                }
+            }
+        } catch (Exception e) {
             newView = null;
         }
-		
-	}
+
+    }
+
+//    public void showProgress(){
+//		try {
+//
+//			if(newView == null){
+//
+//				newView = getActivity().getLayoutInflater().inflate(R.layout.fragment_progress, null, false);
+//                newView.setEnabled(true);
+//                newView.setActivated(true);
+//                newView.setClickable(true);
+//                assert ((ViewGroup) getView()) != null;
+//                ((ViewGroup) getView()).addView(newView);
+//                ((ViewGroup) getView()).bringChildToFront(newView);
+//
+//				mProgressContainer = newView.findViewById(R.id.progress_container);
+//                TextView progressTextView = (TextView) newView.findViewById(R.id.progress_text);
+//
+//                if (!StringUtils.isEmpty(mProgressText)) {
+//                    progressTextView.setText(mProgressText);
+//                    progressTextView.setVisibility(View.VISIBLE);
+////                    FontsUtil.setRobotoFont(getActivity(), progressTextView);
+//                }
+//                else {
+//                    progressTextView.setVisibility(View.GONE);
+//                }
+//
+//                mCircularProgressBar = (CircularProgressBar) newView.findViewById(R.id.my_animation);
+//                ((CircularProgressDrawable)mCircularProgressBar.getIndeterminateDrawable()).start();
+//
+//                mEmptyContainer = newView.findViewById(R.id.emptyContainer);
+//                mEmptyImageView = newView.findViewById(R.id.imageEmpty);
+//				mEmptyView = newView.findViewById(android.R.id.empty);
+//                if (mEmptyContainer != null) {
+//                    mEmptyContainer.setVisibility(View.GONE);
+//                    setContentEmpty(false);
+//                }
+//			}
+//            else if (mIsContentEmpty) {
+//                setContentEmpty(false);
+//            }
+//
+//		} catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//	}
+//
+//	public void hideProgress() {
+//
+//		try {
+//			if(newView != null  && !mIsContentEmpty){
+//				((ViewGroup) getView()).removeView(newView);
+//				newView = null;
+//			}
+//		} catch (Exception e) {
+//            newView = null;
+//        }
+//
+//	}
 
     public void hideProgressAfterSecond(){
         try {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/glavko/AndroidStudioProjects/VarejoDigital/zxing-android/build/intermediates/bundles/debug/res/values-iw/values-iw.xml -->
+    <!-- From: file:/Users/thiagocortat/AndroidStudioProjects/VarejoDigital/zxing-android/build/intermediates/bundles/debug/res/values-iw/values-iw.xml -->
     <eat-comment/>
     <string name="app_name">סורק ברקודים</string>
     <string name="app_picker_name">יישומים</string>

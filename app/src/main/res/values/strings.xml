@@ -34,4 +34,11 @@
     <string name="alert_warning">Alerta:\n\n Produto Coca-Cola 2L abaixo do estoque míminio.</string>
     <string name="see_period">Informar Período</string>
     <string name="title_activity_billing_by_date">BillingByDateActivity</string>
+    <string name="title_activity_bar_code_scan">BarCodeScanActivity</string>
+    <string name="dialog_message_update_qtd">Quantidade atualizada com sucesso!</string>
+    <string name="ok">OK</string>
+    <string name="erro_conexion_try_again">Erro de Conexão, por favor tente novamente!</string>
+
+    <string name="product_name_var"><![CDATA[Nome: <strong>%1$s</strong>]]></string>
+    <string name="product_channel_var"><![CDATA[Canal: <strong>%1$s</strong>]]></string>
 </resources>

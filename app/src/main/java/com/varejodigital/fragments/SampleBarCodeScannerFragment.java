@@ -1,5 +1,7 @@
 package com.varejodigital.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import com.welcu.android.zxingfragmentlib.BarCodeScannerFragment;
  */
 public class SampleBarCodeScannerFragment  extends BarCodeScannerFragment {
 
+    public static final String BAR_CODE = "com.varejodigital.BARCODE";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +22,13 @@ public class SampleBarCodeScannerFragment  extends BarCodeScannerFragment {
         this.setmCallBack(new IResultCallback() {
             @Override
             public void result(Result lastResult) {
-                Toast.makeText(getActivity(), "Scan: " + lastResult.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Scan: " + lastResult.toString(), Toast.LENGTH_SHORT).show();
+
+                Intent it = new Intent();
+                it.putExtra(BAR_CODE, lastResult.toString());
+                getActivity().setResult(Activity.RESULT_OK, it);
+                getActivity().finish();
+
             }
         });
         //cameraManager.setManualFramingRect(450, 349, 100, 50);
