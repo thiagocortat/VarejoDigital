@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.DateTypeAdapter;
 import com.squareup.okhttp.OkHttpClient;
+import com.varejodigital.model.User;
 
 import java.util.Date;
 
@@ -23,6 +24,9 @@ public class RestClient {
     private ApiService apiService;
 
     private final static String apiBaseUrl = "http://www.allinshopp.com.br/varejo";
+
+    private static String EMAIL_ACCOUNT = "";
+    private static String PASSWORD_ACCOUNT = "";
 
     public RestClient() {
         init();
@@ -42,10 +46,17 @@ public class RestClient {
 
             // concatenate username and password with colon for authentication
 //            final String credentials = "marcelosrodrigues@globo.com" + ":" + "12345678";
-            final String credentials = "thiagocortat@gmail.com" + ":" + "12345678";
+//        final String credentials = "thiagocortat@gmail.com" + ":" + "12345678";
+
+
             builder.setRequestInterceptor(new RequestInterceptor() {
                 @Override
                 public void intercept(RequestFacade request) {
+                    String credentials = "";
+                    if (User.getCurrentInstance() == null)
+                       credentials = EMAIL_ACCOUNT + ":" + PASSWORD_ACCOUNT;
+                    else
+                        credentials = User.getCurrentInstance().getEmail() + ":" + User.getCurrentInstance().getPassword();
 
                        String string = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 //                    String string;
@@ -73,4 +84,11 @@ public class RestClient {
         return apiService;
     }
 
+    public static void setEmailAccount(String emailAccount) {
+        EMAIL_ACCOUNT = emailAccount;
+    }
+
+    public static void setPasswordAccount(String passwordAccount) {
+        PASSWORD_ACCOUNT = passwordAccount;
+    }
 }

@@ -1,6 +1,7 @@
 package com.varejodigital;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.parse.Parse;
@@ -14,10 +15,13 @@ import com.parse.SaveCallback;
 
 public class ParseApplication extends Application {
 
+  private static Context mContext;
 
   @Override
   public void onCreate() {
     super.onCreate();
+
+    setAppContext(getApplicationContext());
 
     // Initialize Crash Reporting.
     ParseCrashReporting.enable(this);
@@ -35,5 +39,14 @@ public class ParseApplication extends Application {
       ParseInstallation.getCurrentInstallation().saveInBackground();
 
   }
+
+  public static void setAppContext(Context context){
+    mContext = context;
+  }
+
+  public static Context getAppContext(){
+    return mContext;
+  }
+
 
 }

@@ -5,6 +5,7 @@ import com.varejodigital.model.ApiFaturamento;
 import com.varejodigital.model.ApiProduto;
 import com.varejodigital.model.ApiProdutos;
 import com.varejodigital.model.ApiUpdateProduto;
+import com.varejodigital.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,10 @@ import retrofit.http.Path;
  * Created by thiagocortat on 5/24/15.
  */
 public interface ApiService {
+
+    @GET("/perfis.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void login(Callback<User> callback);
 
     @GET("/produtos.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })

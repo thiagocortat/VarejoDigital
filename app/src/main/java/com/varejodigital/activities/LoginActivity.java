@@ -12,6 +12,12 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.varejodigital.MainActivity;
 import com.varejodigital.R;
+import com.varejodigital.model.User;
+import com.varejodigital.repository.RestClient;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class LoginActivity extends BaseActivity {
@@ -39,31 +45,65 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginUser(View view) {
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        final String username = usernameEditText.getText().toString();
+        final String password = passwordEditText.getText().toString();
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(LoginActivity.this,"Infome usário e senha", Toast.LENGTH_LONG).show();
         }
         else {
             showProgress();
-            ParseUser.logInInBackground(username, password, new LogInCallback() {
+            RestClient.setEmailAccount(username);
+            RestClient.setPasswordAccount(password);
+
+            RestClient client = new RestClient();
+            client.getApiService().login(new Callback<User>() {
                 @Override
-                public void done(ParseUser user, ParseException e) {
-                if (e == null) { // Success!
+                public void success(User user, Response response) {
+                    user.setEmail(username);
+                    user.setPassword(password);
+                    User.saveCurrentUser(user);
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                } else {//Fail
-                    Toast.makeText(LoginActivity.this,"ERRO!" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
-                hideProgress();
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(LoginActivity.this,"ERRO: " + error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
+
+//    public void loginUser(View view) {
+//        String username = usernameEditText.getText().toString();
+//        String password = passwordEditText.getText().toString();
+//
+//        if (username.isEmpty() || password.isEmpty()) {
+//            Toast.makeText(LoginActivity.this,"Infome usário e senha", Toast.LENGTH_LONG).show();
+//        }
+//        else {
+//            showProgress();
+//            ParseUser.logInInBackground(username, password, new LogInCallback() {
+//                @Override
+//                public void done(ParseUser user, ParseException e) {
+//                if (e == null) { // Success!
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                } else {//Fail
+//                    Toast.makeText(LoginActivity.this,"ERRO!" + e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//
+//                hideProgress();
+//                }
+//            });
+//        }
+//    }
 
     public void signUpUser(View view) {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);

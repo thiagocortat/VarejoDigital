@@ -39,6 +39,7 @@ import com.varejodigital.fragments.UpdateEstoqueFragment;
 import com.varejodigital.fragments.base.DemoFragment;
 import com.varejodigital.model.ApiChannels;
 import com.varejodigital.model.ApiFaturamento;
+import com.varejodigital.model.User;
 import com.varejodigital.repository.RestClient;
 
 import java.util.List;
@@ -57,89 +58,97 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser = User.getCurrentInstance();
         if (currentUser == null) {
             loadLoginView();
         }
+        else {
+            connectService();
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            //Add Profile
+            final IProfile profile = new ProfileDrawerItem()
+//                .withName("João").withEmail("joao.teste@projetandoo.com")
+                    .withName("Olá").withEmail(currentUser.getEmail())
+                    .setEnabled(false)
+                    .withIcon(getResources().getDrawable(R.drawable.profile5));
 
-        //Add Profile
-        final IProfile profile = new ProfileDrawerItem()
-                .withName("João").withEmail("joao.teste@projetandoo.com")
-                .setEnabled(false)
-                .withIcon(getResources().getDrawable(R.drawable.profile5));
+            // Create the AccountHeader
+            AccountHeader.Result headerResult = new AccountHeader()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.header)
+                    .addProfiles(profile)
+                    .withAlternativeProfileHeaderSwitching(false)
+                    .withProfileImagesClickable(false)
+                    .withSelectionListEnabled(false)
+                    .build();
 
-        // Create the AccountHeader
-        AccountHeader.Result headerResult = new AccountHeader()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(profile)
-                .withAlternativeProfileHeaderSwitching(false)
-                .withProfileImagesClickable(false)
-                .withSelectionListEnabled(false)
-                .build();
+            result = new Drawer()
+                    .withActivity(this)
+                    .withAccountHeader(headerResult)
+                    .withToolbar(toolbar)
+                    .withActionBarDrawerToggleAnimated(true)
+                    .withActionBarDrawerToggle(true)
+                    .addDrawerItems(getDrawerItensByRole())
+//                    .addDrawerItems(
+//                            new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
+//                            new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
+//                            new PrimaryDrawerItem().withName("Código de Barras").withIdentifier(5),
+////                            new PrimaryDrawerItem().withName("RH").withIdentifier(2),
+////                            new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
+//                            new DividerDrawerItem(),
+////                            new SecondaryDrawerItem().withName("Configuração"),
+//                            new SecondaryDrawerItem().withName("Logout")
+//                    )
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int i, long id, IDrawerItem drawerItem) {
 
-        result = new Drawer()
-                .withActivity(this)
-                .withAccountHeader(headerResult)
-                .withToolbar(toolbar)
-                .withActionBarDrawerToggleAnimated(true)
-                .withActionBarDrawerToggle(true)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
-                        new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
-                        new PrimaryDrawerItem().withName("RH").withIdentifier(2),
-                        new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Código de Barras"),
-                        new SecondaryDrawerItem().withName("Configuração"),
-                        new SecondaryDrawerItem().withName("Logout")
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int i, long id, IDrawerItem drawerItem) {
-
-                        if (i == 0) {
-                            Fragment f = FaturamentoFragment.newInstance();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 1) {
-                            Fragment f = ProductFilterFragment.newInstance();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 2) {
-                            Fragment f = EmployeeFilterFragment.newInstance();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 3) {
+                            if (drawerItem.getIdentifier() == 0) {
+                                Fragment f = FaturamentoFragment.newInstance();
+                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                            }
+                            else if (drawerItem.getIdentifier() == 1) {
+                                Fragment f = ProductFilterFragment.newInstance();
+                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                            }
+                            else if (drawerItem.getIdentifier() == 2) {
+                                Fragment f = EmployeeFilterFragment.newInstance();
+                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                            }
+                            else if (drawerItem.getIdentifier() == 3) {
 //                            Fragment f = CRMFragment.newInstance();
-                            Fragment f = DemoFragment.newInstance("");
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 5) {
-//                            SampleBarCodeScannerFragment f = SampleBarCodeScannerFragment.newInstance();
-                            Fragment f = UpdateEstoqueFragment.newInstance();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
-                        } else if (i == 6) {
-                            SettingsFragment f = SettingsFragment.newInstance();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                Fragment f = DemoFragment.newInstance("");
+                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                            }
+                            else if (drawerItem.getIdentifier() == 5) {
+                                Fragment f = UpdateEstoqueFragment.newInstance();
+                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                            }
+//                            else if (drawerItem.getIdentifier() == 6) {
+//                                SettingsFragment f = SettingsFragment.newInstance();
+//                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+//                            }
+                            else if (drawerItem.getIdentifier() == 7) {
+//                            ParseUser.logOut();
+                                User.resetCurrentUser();
+                                loadLoginView();
+                            }
                         }
-                        else if (i == 7) {
-                            ParseUser.logOut();
-                            loadLoginView();
-                        }
-                    }
 
-                })
-                //just use this with the Drawer.Builder
-                .withSelectedItem(-1)
-                .withFireOnInitialOnClick(false)
-                .build();
+                    })
+                            //just use this with the Drawer.Builder
+                    .withSelectedItem(-1)
+                    .withFireOnInitialOnClick(false)
+                    .build();
 
-        result.openDrawer();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
-
-        connectService();
+            result.openDrawer();
+            result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+        }
 
         SharedPreferences pref =  PreferenceManager.getDefaultSharedPreferences(this);
         boolean alert = pref.getBoolean(getString(R.string.original_checkbox_key), false);
@@ -209,5 +218,29 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Erro " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public IDrawerItem[] getDrawerItensByRole(){
+
+        IDrawerItem[] items = null;
+        User currentUser = User.getCurrentInstance();
+        if (currentUser.getRoles().contains(User.ROLE_ADMINISTRATOR)) {
+            items = new IDrawerItem[] {
+                    new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
+                    new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
+                    new PrimaryDrawerItem().withName("Código de Barras").withIdentifier(5),
+                    new DividerDrawerItem(),
+                    new SecondaryDrawerItem().withName("Logout")};
+        }
+        else if (currentUser.getRoles().contains(User.ROLE_AUDITOR)) {
+            items = new IDrawerItem[] {
+                    new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
+                    new PrimaryDrawerItem().withName("Código de Barras").withIdentifier(5),
+                    new DividerDrawerItem(),
+                    new SecondaryDrawerItem().withName("Logout").withIdentifier(7)};
+
+        }
+
+        return items;
     }
 }
