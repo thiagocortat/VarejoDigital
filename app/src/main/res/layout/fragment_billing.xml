@@ -42,11 +42,34 @@
 
 
     </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <TextView
+        android:id="@+id/txTitleFat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingTop="@dimen/margin"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/segmented"
+        tools:text="Ticket Atual"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin_min"
+        android:layout_below="@+id/txTitleFat"
+        android:background="@color/Silver"/>
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/segmented">
+        android:layout_marginTop="@dimen/margin_min"
+        android:layout_below="@+id/txTitleFat">
     </ListView>
 
 

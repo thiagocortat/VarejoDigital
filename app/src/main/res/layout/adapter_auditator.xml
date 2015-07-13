@@ -1,0 +1,103 @@
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="@dimen/spacing_medium"
+    card_view:cardUseCompatPadding="true"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:id="@+id/layoutEstoque"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin">
+
+        <TextView android:id="@+id/txTitleUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin_min"
+            android:visibility="gone"
+            android:text="Atualizar Qtd do Produto" />
+
+        <TextView android:id="@+id/txName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/txTitleUpdate"
+            tools:text="Coca-Cola 2L" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:layout_below="@+id/txName"
+            android:background="@color/Silver"/>
+
+        <TextView android:id="@+id/txLabel2"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@+id/txName"
+            android:layout_marginRight="@dimen/margin"
+            android:gravity="center_vertical"
+            android:text="Nº  Estoque: " />
+
+        <EditText
+            android:id="@+id/editEstoque"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/txName"
+            android:layout_toRightOf="@+id/txLabel2"
+            android:inputType="numberSigned"
+            android:selectAllOnFocus="true"
+            android:nextFocusForward="@+id/editGondola"
+            android:imeOptions="actionNext"
+            android:hint="Qtd em estoque"/>
+
+        <TextView android:id="@+id/txLabel3"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@+id/editEstoque"
+            android:layout_marginRight="@dimen/margin"
+            android:gravity="center_vertical"
+            android:text="Nº  Gondola:" />
+
+        <EditText
+            android:id="@+id/editGondola"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/editEstoque"
+            android:layout_alignLeft="@+id/editEstoque"
+            android:inputType="numberSigned"
+            android:selectAllOnFocus="true"
+            android:hint="Qtd na Gondola"/>
+
+        <Button
+            android:id="@+id/btUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Atualizar"
+            android:layout_below="@+id/editGondola"
+            />
+
+        <Button
+            android:id="@+id/btCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remover"
+            android:layout_below="@+id/editGondola"
+            android:layout_toLeftOf="@+id/btUpdate"
+            />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

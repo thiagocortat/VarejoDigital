@@ -28,6 +28,7 @@ import com.parse.ParseUser;
 import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.varejodigital.activities.LoginActivity;
+import com.varejodigital.fragments.AuditateFragment;
 import com.varejodigital.fragments.BillingFragment;
 import com.varejodigital.fragments.CRMFragment;
 import com.varejodigital.fragments.EmployeeFilterFragment;
@@ -52,13 +53,14 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Drawer.Result result = null;
+    protected Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -94,40 +96,28 @@ public class MainActivity extends AppCompatActivity {
                     .withActionBarDrawerToggleAnimated(true)
                     .withActionBarDrawerToggle(true)
                     .addDrawerItems(getDrawerItensByRole())
-//                    .addDrawerItems(
-//                            new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
-//                            new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
-//                            new PrimaryDrawerItem().withName("Código de Barras").withIdentifier(5),
-////                            new PrimaryDrawerItem().withName("RH").withIdentifier(2),
-////                            new PrimaryDrawerItem().withName("CRM").withIdentifier(3),
-//                            new DividerDrawerItem(),
-////                            new SecondaryDrawerItem().withName("Configuração"),
-//                            new SecondaryDrawerItem().withName("Logout")
-//                    )
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int i, long id, IDrawerItem drawerItem) {
-
+                            Fragment f = null;
                             if (drawerItem.getIdentifier() == 0) {
-                                Fragment f = FaturamentoFragment.newInstance();
-                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                f = FaturamentoFragment.newInstance();
                             }
                             else if (drawerItem.getIdentifier() == 1) {
-                                Fragment f = ProductFilterFragment.newInstance();
-                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                f = ProductFilterFragment.newInstance();
                             }
                             else if (drawerItem.getIdentifier() == 2) {
-                                Fragment f = EmployeeFilterFragment.newInstance();
-                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                f = EmployeeFilterFragment.newInstance();
                             }
                             else if (drawerItem.getIdentifier() == 3) {
 //                            Fragment f = CRMFragment.newInstance();
-                                Fragment f = DemoFragment.newInstance("");
-                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                f = DemoFragment.newInstance("");
+                            }
+                            else if (drawerItem.getIdentifier() == 4) {
+                                f = AuditateFragment.newInstance();
                             }
                             else if (drawerItem.getIdentifier() == 5) {
-                                Fragment f = UpdateEstoqueFragment.newInstance();
-                                getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
+                                f = UpdateEstoqueFragment.newInstance();
                             }
 //                            else if (drawerItem.getIdentifier() == 6) {
 //                                SettingsFragment f = SettingsFragment.newInstance();
@@ -137,7 +127,9 @@ public class MainActivity extends AppCompatActivity {
 //                            ParseUser.logOut();
                                 User.resetCurrentUser();
                                 loadLoginView();
+                                return;
                             }
+                            getFragmentManager().beginTransaction().replace(R.id.frame_container, f).commit();
                         }
 
                     })
@@ -190,6 +182,12 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e) {}
     }
 
+    public void showToolBarLoading(boolean show){
+        try {
+            toolbar.findViewById(R.id.progress_spinner).setVisibility(show ? View.VISIBLE : View.GONE);
+        }catch (Exception e){}
+    }
+
 
     public void connectService() {
 
@@ -228,9 +226,10 @@ public class MainActivity extends AppCompatActivity {
             items = new IDrawerItem[] {
                     new PrimaryDrawerItem().withName("Faturamento").withIdentifier(0),
                     new PrimaryDrawerItem().withName("Produtos").withIdentifier(1),
+                    new PrimaryDrawerItem().withName("Auditoria").withIdentifier(4),
                     new PrimaryDrawerItem().withName("Código de Barras").withIdentifier(5),
                     new DividerDrawerItem(),
-                    new SecondaryDrawerItem().withName("Logout")};
+                    new SecondaryDrawerItem().withName("Logout").withIdentifier(7)};
         }
         else if (currentUser.getRoles().contains(User.ROLE_AUDITOR)) {
             items = new IDrawerItem[] {

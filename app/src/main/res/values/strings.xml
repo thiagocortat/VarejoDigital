@@ -41,4 +41,8 @@
 
     <string name="product_name_var"><![CDATA[Nome: <strong>%1$s</strong>]]></string>
     <string name="product_channel_var"><![CDATA[Canal: <strong>%1$s</strong>]]></string>
+
+    <string name="fat_title_tks_medio_var">Ticket Médio atual: R$ %1$s</string>
+    <string name="fat_title_acumulado_var">Valor Acumulado atual: R$ %1$s</string>
+    <string name="fat_title_tks_var">Nº Tickets atual: %1$s</string>
 </resources>

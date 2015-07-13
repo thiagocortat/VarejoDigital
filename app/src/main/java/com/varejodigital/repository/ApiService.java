@@ -32,10 +32,13 @@ public interface ApiService {
     @Headers({ "Content-type: application/json; charset=UTF-8" })
     void obtainProdutos(Callback<ApiProdutos> callback);
 
+    @GET("/auditoria/produtos.json")
+    @Headers({ "Content-type: application/json; charset=UTF-8" })
+    void obtainProdutosToAuditate(Callback<ApiProdutos> callback);
+
     @GET("/{id}/produto.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
     void obtainProduto(@Path("id") int groupId, Callback<ApiProduto> callback);
-
 
     @GET("/produto/{codBarra}.json")
     @Headers({ "Content-type: application/json; charset=UTF-8" })
@@ -59,7 +62,4 @@ public interface ApiService {
     @Headers({ "Content-type: application/json; charset=UTF-8" })
     void obtainCanais(Callback<ApiChannels> callback);
 
-//    @GET("/estados.json")
-//    @Headers({ "Content-type: application/json; charset=UTF-8" })
-//    void obtainEstados(@Header("Authorization") String authorization, Callback<String> callback);
 }

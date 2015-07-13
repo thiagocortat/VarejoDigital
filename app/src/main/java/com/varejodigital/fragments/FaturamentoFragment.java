@@ -51,12 +51,13 @@ import retrofit.client.Response;
 
 public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
 
-
+    TextView txTitleFat;
     ListView lv;
     ValueFormatter customFormat;
     SegmentedGroup segmented;
     ChartDataLineAdapter chartLineAdapter, chartLineTicketsAdapter;
     ChartBarDataAdapter chartBarAdapter;
+    ApiFaturamento mApiFaturamento;
 
     public static final String DATEPICKER_TAG = "datepicker";
     public static final String DATEPICKER_2_TAG = "datepicker2";
@@ -88,6 +89,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
+        txTitleFat = (TextView) view.findViewById(R.id.txTitleFat);
         lv = (ListView) view.findViewById(R.id.listView1);
 
         customFormat = new MyValueFormatter();
@@ -124,18 +126,22 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        ApiFaturamento.Faturamento fat = mApiFaturamento.getFaturamento().get(0);
         switch (checkedId) {
             case R.id.button21:
                 selectedSegmentIndex = 0;
                 lv.setAdapter(chartLineAdapter);
+                txTitleFat.setText(getString(R.string.fat_title_tks_medio_var, fat.getMedio()));
                 return;
             case R.id.button22:
                 selectedSegmentIndex = 1;
                 lv.setAdapter(chartBarAdapter);
+                txTitleFat.setText(getString(R.string.fat_title_acumulado_var, fat.getAcumulado()));
                 return;
             case R.id.button23:
                 selectedSegmentIndex = 2;
                 lv.setAdapter(chartLineTicketsAdapter);
+                txTitleFat.setText(getString(R.string.fat_title_tks_var, fat.getTicket()));
                 return;
             default:
                 // Nothing to do
@@ -329,6 +335,7 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
 
     public void pupulateData(ApiFaturamento apiFaturamento) {
 
+        mApiFaturamento = apiFaturamento;
         ArrayList<ChartLineModel> listLine = new ArrayList<>();
         ArrayList<ChartBarModel> listBar = new ArrayList<>();
         ArrayList<ChartLineModel> listTickets = new ArrayList<>();
@@ -336,17 +343,18 @@ public class FaturamentoFragment extends BaseFragment implements RadioGroup.OnCh
         ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
         List<ApiFaturamento.Faturamento.PorMes.PorSemana> porSemanas = new ArrayList<>();
 
+        txTitleFat.setText(getString(R.string.fat_title_tks_medio_var, fat.getMedio()));
+
         for (ApiFaturamento.Faturamento.PorMes porMes : fat.getPorMes()) {
             porSemanas.addAll(porMes.getPorSemana());
         }
 
         for (int i = 0; i < 3; i++) {
 
-//            ApiFaturamento.Faturamento fat = apiFaturamento.getFaturamento().get(0);
             if(i == 0) {
-                listLine.add(new ChartLineModel("Ticket Médio  - $ "     + fat.getMedio(),  getDaysLine(fat.getPorDia(), 0)));
-                listBar.add(new ChartBarModel("Valor Acumulado - $"    + fat.getAcumulado(), getDaysBar(fat.getPorDia(), 1) ));
-                listTickets.add(new ChartLineModel("Tickets  - "     + fat.getTicket(),  getDaysLine(fat.getPorDia(), 2)));
+                listLine.add(new ChartLineModel("Ticket Médio nos últimos dias" ,  getDaysLine(fat.getPorDia(), 0)));
+                listBar.add(new ChartBarModel("Valor Acumulado nos últimos dias", getDaysBar(fat.getPorDia(), 1) ));
+                listTickets.add(new ChartLineModel("Tickets nos últimos dias",  getDaysLine(fat.getPorDia(), 2)));
             }
             else if(i == 1) {
                 listLine.add(new ChartLineModel("Ticket Médio nas últimas semanas", getWeeksLine(porSemanas, 0)));
