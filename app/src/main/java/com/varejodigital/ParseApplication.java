@@ -33,7 +33,9 @@ public class ParseApplication extends Application {
 //    ParseObject.registerSubclass(Message.class);
 
       // Add your initialization code here
-      Parse.initialize(this, "G2lw9bOOI3T4SI42ULhUb4fcHDKISDbOJIRnZbRU", "FF4GFPPeBdpnvzt7eiNlqtEr1HIgGwazX4StO1Al");
+    Parse.initialize(this, "IdD1hNY5DAH8eygEDMIHJvultE4pQytKbEYlOu2X", "UAyhgyBQbOCyTgVzl4kvEYs3vbY0aeWRwlqB7BRV");
+
+    //  Parse.initialize(this, "G2lw9bOOI3T4SI42ULhUb4fcHDKISDbOJIRnZbRU", "FF4GFPPeBdpnvzt7eiNlqtEr1HIgGwazX4StO1Al");
 
       // Save the current Installation to Parse.
       ParseInstallation.getCurrentInstallation().saveInBackground();
