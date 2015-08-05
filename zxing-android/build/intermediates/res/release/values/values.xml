@@ -74,7 +74,7 @@
     <item name="return_scan_result" type="id"/>
     <!-- From: file:/Users/glavko/AndroidStudioProjects/VarejoDigital/zxing-android/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="app_name">Barcode Scanner</string>
+    <string name="app_name">Varejo Digital</string>
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>

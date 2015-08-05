@@ -25,16 +25,16 @@ android {
         }
     }
 
-    productFlavors {
-        normal {
-            applicationId "com.varejodigital"
-            versionName "1.0"
-        }
-        barscanner {
-            applicationId   "com.varejodigital.barscanner"
-            versionName "1.0-barscanner"
-        }
-    }
+//    productFlavors {
+//        normal {
+//            applicationId "com.varejodigital"
+//            versionName "1.0"
+//        }
+//        barscanner {
+//            applicationId   "com.varejodigital.barscanner"
+//            versionName "1.0-barscanner"
+//        }
+//    }
 }
 
 dependencies {
