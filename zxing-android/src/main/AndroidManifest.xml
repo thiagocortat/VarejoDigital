@@ -15,7 +15,8 @@
  limitations under the License.
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.google.zxing.client.android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.google.zxing.client.android"
           android:versionName="4.7.1"
           android:versionCode="101"
           android:installLocation="auto">
@@ -30,7 +31,8 @@
   <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-  <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19"/>
+  <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22"
+      tools:ignore="GradleOverrides" />
 
   <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
   <uses-feature android:name="android.hardware.camera" android:required="false"/>

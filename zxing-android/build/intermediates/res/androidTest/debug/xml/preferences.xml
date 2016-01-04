@@ -128,4 +128,4 @@
         android:title="@string/preferences_disable_barcode_scene_mode_title"/>
   </PreferenceCategory>
 </PreferenceScreen>
-<!-- From: file:/Users/thiagocortat/AndroidStudioProjects/VarejoDigital/zxing-android/src/main/res/xml/preferences.xml --><!-- From: file:/Users/thiagocortat/AndroidStudioProjects/VarejoDigital/zxing-android/build/intermediates/bundles/debug/res/xml/preferences.xml -->
+<!-- From: file:/Users/glavko/AndroidStudioProjects/VarejoDigital/zxing-android/src/main/res/xml/preferences.xml --><!-- From: file:/Users/glavko/AndroidStudioProjects/VarejoDigital/zxing-android/build/intermediates/bundles/debug/res/xml/preferences.xml -->
